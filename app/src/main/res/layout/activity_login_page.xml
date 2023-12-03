@@ -31,7 +31,7 @@
         />
 
     <EditText
-        android:id="@+id/txtUsername"
+        android:id="@+id/editTextUsername1"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -47,7 +47,7 @@
         />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/editTextPassword1"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"

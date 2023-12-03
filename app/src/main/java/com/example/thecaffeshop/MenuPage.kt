@@ -21,6 +21,5 @@ class MenuPage : AppCompatActivity() {
         simpleList?.adapter = arrayAdapter
 
 
-
     }
 }
