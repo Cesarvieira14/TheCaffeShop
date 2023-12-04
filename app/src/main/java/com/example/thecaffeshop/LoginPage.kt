@@ -6,39 +6,44 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import com.example.thecaffeshop.Model.DataBaseHelper
+import com.example.thecaffeshop.Model.AdminDBHelper
+import com.example.thecaffeshop.Model.CustomerDBHelper
 
 class LoginPage : AppCompatActivity() {
 
-    val dbHelper: DataBaseHelper = DataBaseHelper(this)
+    val customerDBHelper: CustomerDBHelper = CustomerDBHelper(this)
+    val adminDBHelper: AdminDBHelper = AdminDBHelper(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
     }
-    fun registerButton(view: View){
-        val register = Intent (this, RegisterPage::class.java)
+
+    fun registerButton(view: View) {
+        val register = Intent(this, RegisterPage::class.java)
         startActivity(register)
     }
 
     private fun authenticateUser(username: String, password: String): Boolean {
-        val user = dbHelper.getUserByUsername(username)
+        val customerUser = customerDBHelper.getUserByUsername(username)
+        val adminUser = adminDBHelper.getUserByUsername(username)
 
-        if (user !== null && user.cusPassword == password) {
-           return true
+        if ((customerUser !== null && customerUser.cusPassword == password && customerUser.isActive) ||
+            (adminUser !== null && adminUser.cusPassword == password && adminUser.isActive)) {
+            return true
         }
 
         return false
     }
 
 
-    fun loginButton(view: View){
+    fun loginButton(view: View) {
         val username = findViewById<EditText>(R.id.editTextUsername1).text.toString()
         val password = findViewById<EditText>(R.id.editTextPassword1).text.toString()
 
         if (authenticateUser(username, password)) {
             // User exists, proceed to next activity
-            val login = Intent (this, MenuPage::class.java)
+            val login = Intent(this, MenuPage::class.java)
             startActivity(login)
             Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show()
         } else {
@@ -50,5 +55,5 @@ class LoginPage : AppCompatActivity() {
     }
 
 
-    }
+}
 

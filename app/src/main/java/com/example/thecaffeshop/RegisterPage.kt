@@ -6,14 +6,17 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
-import com.example.thecaffeshop.Model.Customer
-import com.example.thecaffeshop.Model.DataBaseHelper
+import com.example.thecaffeshop.Model.AdminDBHelper
+import com.example.thecaffeshop.Model.User
+import com.example.thecaffeshop.Model.CustomerDBHelper
 
 class RegisterPage : AppCompatActivity() {
 
-    val dbHelper: DataBaseHelper = DataBaseHelper(this)
+    private val customerDBHelper: CustomerDBHelper = CustomerDBHelper(this)
+    private val adminDBHelper: AdminDBHelper = AdminDBHelper(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,59 +47,59 @@ class RegisterPage : AppCompatActivity() {
     }
 
     fun btRegisterCustomer(view: View) {
-
-        val cusFullName = findViewById<EditText>(R.id.editTextFullname).text.toString()
-        val cusEmail = findViewById<EditText>(R.id.editTextEmailAddress).text.toString()
-        val cusPhoneNo = findViewById<EditText>(R.id.editTextPhone).text.toString()
-        val cusUserName = findViewById<EditText>(R.id.editTextUsername1).text.toString()
-        val cusPassword = findViewById<EditText>(R.id.editTextPassword2).text.toString()
-        val cusIsActive: Boolean = true
+        val fullName = findViewById<EditText>(R.id.editTextFullname).text.toString()
+        val email = findViewById<EditText>(R.id.editTextEmailAddress).text.toString()
+        val phoneNo = findViewById<EditText>(R.id.editTextPhone).text.toString()
+        val userName = findViewById<EditText>(R.id.editTextUsername1).text.toString()
+        val password = findViewById<EditText>(R.id.editTextPassword2).text.toString()
+        val isAdmin = findViewById<RadioGroup>(R.id.editTextPassword2).checkedRadioButtonId === 1
+        val isActive: Boolean = !isAdmin
 
         // -----------------------Validation for the register
 
         //check for empty fields
 
-        if (cusFullName.isBlank() || cusEmail.isBlank() || cusPhoneNo.isBlank() || cusUserName.isBlank() || cusPassword.isBlank()) {
+        if (fullName.isBlank() || email.isBlank() || phoneNo.isBlank() || userName.isBlank() || password.isBlank()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
         // check if email format is valid
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(cusEmail).matches()) {
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Add validation for phone number ----DONE
-        if (!cusPhoneNo.matches(Regex("^\\d{6,15}$"))) {
+        if (!phoneNo.matches(Regex("^\\d{6,15}$"))) {
             Toast.makeText(this, "Invalid phone number", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val user = dbHelper.getUserByUsername(cusUserName)
+        val user = customerDBHelper.getUserByUsername(userName)
 
         if (user !== null) {
-            Toast.makeText(this, "Username already exists. Please choose a different one.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Username already exists. Please choose a different one.",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
 
-
-
-        //----------------------------------- end of validation fro register
-
-
-
-
-
         // Create a Customer object with the user details
-        val customer = Customer(
-            0, cusFullName, cusEmail, cusPhoneNo, cusUserName, cusPassword,
-            cusIsActive
+        val customer = User(
+            0, fullName, email, phoneNo, userName, password, isActive, isAdmin
         )
 
+        val isRegistered = if (isAdmin) {
+            adminDBHelper.registerAdmin(customer);
+        } else {
+            customerDBHelper.registerCustomer(customer);
+        }
 
         // Clear the fields
-        if (dbHelper.registerCustomer(customer)) {
+        if (isRegistered) {
             Toast.makeText(this, "You registered successfully", Toast.LENGTH_SHORT).show()
             findViewById<EditText>(R.id.editTextFullname).text.clear()
             findViewById<EditText>(R.id.editTextEmailAddress).text.clear()
