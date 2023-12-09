@@ -1,9 +1,15 @@
 package com.example.thecaffeshop
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import com.example.thecaffeshop.utils.Session
+import com.example.thecaffeshop.utils.Session.userId
+import com.example.thecaffeshop.utils.Session.username
+import kotlin.math.log
 
 class MenuPage : AppCompatActivity() {
     var simpleList: ListView? = null
@@ -20,6 +26,10 @@ class MenuPage : AppCompatActivity() {
             ArrayAdapter(this,R.layout.menu_item_adapter, R.id.textView, productList)
         simpleList?.adapter = arrayAdapter
 
-
+        val userPrefs = Session.userPreference(this)
+        if (userPrefs?.userId ?: 0 === 0) {
+            val login = Intent(this, LoginPage::class.java)
+            startActivity(login)
+        }
     }
 }
