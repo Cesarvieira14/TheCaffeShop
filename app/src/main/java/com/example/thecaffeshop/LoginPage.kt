@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.thecaffeshop.Model.AdminDBHelper
 import com.example.thecaffeshop.Model.CustomerDBHelper
+import com.example.thecaffeshop.utils.Encryption
 
 class LoginPage : AppCompatActivity() {
 
@@ -46,22 +47,34 @@ class LoginPage : AppCompatActivity() {
             val login = Intent(this, MenuPage::class.java)
             startActivity(login)
             Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show()
-        } else {
-            // User doesn't exist, show error message
-            Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun authenticateUser(username: String, password: String): Boolean {
         val customerUser = customerDBHelper.getUserByUsername(username)
-        val adminUser = adminDBHelper.getUserByUsername(username)
+        // TODO: handle admin login
+        // val adminUser = adminDBHelper.getUserByUsername(username)
 
-        val isCustomer = customerUser !== null && customerUser.cusPassword == password && customerUser.isActive
-        val isAdmin = adminUser !== null && adminUser.cusPassword == password && adminUser.isActive
+        if (customerUser == null) {
+            Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (!customerUser!!.isActive) {
+            Toast.makeText(this, "Your account is not active", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        // Encrypt submitted password to check with the stored password
+        val encryptedPassword = Encryption.hashString(password)
+        if (customerUser!!.cusPassword != encryptedPassword) {
+            Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
+            return false
+        }
 
         // TODO: set user app session
 
-        return isCustomer || isAdmin
+        return true
     }
 }
 

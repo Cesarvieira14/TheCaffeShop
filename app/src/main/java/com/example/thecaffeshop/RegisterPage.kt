@@ -3,15 +3,16 @@ package com.example.thecaffeshop
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
-import android.view.View
+import android.widget.Button
 import android.widget.EditText
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import com.example.thecaffeshop.Model.AdminDBHelper
 import com.example.thecaffeshop.Model.User
 import com.example.thecaffeshop.Model.CustomerDBHelper
+import com.example.thecaffeshop.utils.Encryption
 
 class RegisterPage : AppCompatActivity() {
 
@@ -23,15 +24,14 @@ class RegisterPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_page)
 
-
-        // Get actionBar
         val actionBar: ActionBar? = supportActionBar
-
         // Enable the Up button
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayShowHomeEnabled(true)
 
-
+        findViewById<Button>(R.id.btnRegisterUser).setOnClickListener {
+            handleRegisterButtonClick()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -46,19 +46,16 @@ class RegisterPage : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun btRegisterCustomer(view: View) {
+    private fun handleRegisterButtonClick() {
         val fullName = findViewById<EditText>(R.id.editTextFullname).text.toString()
         val email = findViewById<EditText>(R.id.editTextEmailAddress).text.toString()
         val phoneNo = findViewById<EditText>(R.id.editTextPhone).text.toString()
         val userName = findViewById<EditText>(R.id.editTextUsername1).text.toString()
         val password = findViewById<EditText>(R.id.editTextPassword2).text.toString()
-        val isAdmin = findViewById<RadioGroup>(R.id.editTextPassword2).checkedRadioButtonId === 1
-        val isActive: Boolean = !isAdmin
 
         // -----------------------Validation for the register
 
         //check for empty fields
-
         if (fullName.isBlank() || email.isBlank() || phoneNo.isBlank() || userName.isBlank() || password.isBlank()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
@@ -70,7 +67,7 @@ class RegisterPage : AppCompatActivity() {
             return
         }
 
-        // Add validation for phone number ----DONE
+        // Add validation for phone number
         if (!phoneNo.matches(Regex("^\\d{6,15}$"))) {
             Toast.makeText(this, "Invalid phone number", Toast.LENGTH_SHORT).show()
             return
@@ -87,27 +84,27 @@ class RegisterPage : AppCompatActivity() {
             return
         }
 
+        val encryptedPassword = Encryption.hashString(password)
+
         // Create a Customer object with the user details
         val customer = User(
-            0, fullName, email, phoneNo, userName, password, isActive, isAdmin
+            0, fullName, email, phoneNo, userName, encryptedPassword, true, false
         )
 
-        val isRegistered = if (isAdmin) {
-            adminDBHelper.registerAdmin(customer);
-        } else {
-            customerDBHelper.registerCustomer(customer);
-        }
+        val isRegistered = customerDBHelper.registerCustomer(customer);
 
         // Clear the fields
         if (isRegistered) {
             Toast.makeText(this, "You registered successfully", Toast.LENGTH_SHORT).show()
+
             findViewById<EditText>(R.id.editTextFullname).text.clear()
             findViewById<EditText>(R.id.editTextEmailAddress).text.clear()
             findViewById<EditText>(R.id.editTextPhone).text.clear()
             findViewById<EditText>(R.id.editTextUsername1).text.clear()
             findViewById<EditText>(R.id.editTextPassword2).text.clear()
-
-        } else Toast.makeText(this, "Error: The employee not added", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Error: The employee not added", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
