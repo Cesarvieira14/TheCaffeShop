@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
             handleStartButtonClick()
         }
 
-        val userPrefs = Session.userPreference(this)
+        val userPrefs = Session.userPreference(this.applicationContext)
         if (userPrefs?.userId ?: 0 > 0) {
             val menu = Intent(this, HomeActivity::class.java)
             startActivity(menu)

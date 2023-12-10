@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.thecaffeshop.model.AdminDBHelper
 import com.example.thecaffeshop.model.CustomerDBHelper
 import com.example.thecaffeshop.utils.Encryption
 import com.example.thecaffeshop.utils.Session.admin
@@ -17,7 +16,7 @@ import com.example.thecaffeshop.utils.Session.username
 class LoginPage : AppCompatActivity() {
 
     private val customerDBHelper: CustomerDBHelper = CustomerDBHelper(this)
-    private val adminDBHelper: AdminDBHelper = AdminDBHelper(this)
+//    private val adminDBHelper: AdminDBHelper = AdminDBHelper(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +30,7 @@ class LoginPage : AppCompatActivity() {
             handleRegisterButtonClick()
         }
 
-        val userPrefs = userPreference(this)
+        val userPrefs = userPreference(this.applicationContext)
         if (userPrefs?.userId ?: 0 > 0) {
             val menu = Intent(this, HomeActivity::class.java)
             startActivity(menu)
@@ -82,7 +81,7 @@ class LoginPage : AppCompatActivity() {
             return false
         }
 
-        val userPrefs = userPreference(this)
+        val userPrefs = userPreference(this.applicationContext)
         userPrefs.userId = customerUser!!.id
         userPrefs.username = customerUser!!.cusUserName
         userPrefs.admin = false
