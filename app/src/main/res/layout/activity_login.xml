@@ -7,7 +7,7 @@
     android:background="#DDA072"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".LoginPage">
+    tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/txtTitle"

@@ -7,7 +7,7 @@
     android:background="#DDA072"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".RegisterPage">
+    tools:context=".RegisterActivity">
 
     <TextView
         android:id="@+id/txtRegister"

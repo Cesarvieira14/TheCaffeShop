@@ -5,7 +5,7 @@
     <string name="title_store">Store</string>
     <string name="title_profile">Profile</string>
     <string name="home_page_title">Welcome</string>
-    <string name="store_page_title">Browse</string>
+    <string name="store_page_title">Menu</string>
     <string name="profile_page_title">Your profile</string>
     <string name="profile_email_text">Email: </string>
     <string name="profile_username_text">Username: </string>

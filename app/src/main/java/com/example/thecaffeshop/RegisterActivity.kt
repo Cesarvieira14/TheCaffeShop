@@ -13,7 +13,7 @@ import com.example.thecaffeshop.model.User
 import com.example.thecaffeshop.model.CustomerDBHelper
 import com.example.thecaffeshop.utils.Encryption
 
-class RegisterPage : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
     private val customerDBHelper: CustomerDBHelper = CustomerDBHelper(this)
     private val adminDBHelper: AdminDBHelper = AdminDBHelper(this)
@@ -21,7 +21,7 @@ class RegisterPage : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register_page)
+        setContentView(R.layout.activity_register)
 
         val actionBar: ActionBar? = supportActionBar
         // Enable the Up button
@@ -37,7 +37,7 @@ class RegisterPage : AppCompatActivity() {
         when (item.itemId) {
             android.R.id.home -> {
                 // Handle the Home button click
-                val intent = Intent(this, LoginPage::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 return true
             }

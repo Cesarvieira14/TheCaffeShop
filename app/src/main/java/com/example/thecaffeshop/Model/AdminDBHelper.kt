@@ -1,5 +1,6 @@
 package com.example.thecaffeshop.model
 
+import Constants.Companion.DB_NAME
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
@@ -7,10 +8,9 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-private val DataBaseName = "TheCaffeShopDb.db"
 private val ver: Int = 1
 
-class AdminDBHelper(context: Context) : SQLiteOpenHelper(context, DataBaseName, null, ver) {
+class AdminDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, ver) {
 
     /* Customer Table */
     val TableName = "Admins"

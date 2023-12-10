@@ -1,13 +1,14 @@
 package com.example.thecaffeshop
 
+import android.app.ActionBar
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.thecaffeshop.databinding.ActivityHomeBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -15,6 +16,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // supportActionBar?.hide()
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleStartButtonClick() {
-        val start = Intent (this, LoginPage::class.java)
+        val start = Intent (this, LoginActivity::class.java)
         startActivity(start)
     }
 }

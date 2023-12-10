@@ -1,5 +1,6 @@
 package com.example.thecaffeshop.model
 
+import Constants.Companion.DB_NAME
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
@@ -8,11 +9,9 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 /* Database Config*/
-private const val DataBaseName = "TheCaffeShopDb.db"
 private const val ver: Int = 1
 
-
-class CustomerDBHelper(context: Context) : SQLiteOpenHelper(context, DataBaseName, null, ver) {
+class CustomerDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, ver) {
 
     /* Customer Table */
     val TableName = "Customers"

@@ -13,14 +13,14 @@ import com.example.thecaffeshop.utils.Session.userId
 import com.example.thecaffeshop.utils.Session.userPreference
 import com.example.thecaffeshop.utils.Session.username
 
-class LoginPage : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private val customerDBHelper: CustomerDBHelper = CustomerDBHelper(this)
 //    private val adminDBHelper: AdminDBHelper = AdminDBHelper(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_page)
+        setContentView(R.layout.activity_login)
 
         findViewById<Button>(R.id.btnLogin).setOnClickListener {
             handleLoginButtonClick()
@@ -38,7 +38,7 @@ class LoginPage : AppCompatActivity() {
     }
 
     private fun handleRegisterButtonClick() {
-        val register = Intent(this, RegisterPage::class.java)
+        val register = Intent(this, RegisterActivity::class.java)
         startActivity(register)
     }
 
