@@ -10,7 +10,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.thecaffeshop.LoginActivity
+import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentProfileBinding
+import com.example.thecaffeshop.ui.profile.managment.UserManagmentFragment
 import com.example.thecaffeshop.utils.Session
 import com.example.thecaffeshop.utils.Session.clearValues
 
@@ -24,6 +26,8 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+       // this.activity?.actionBar?.hide()
+
         val profileViewModel =
             ViewModelProvider(this).get(ProfileViewModel::class.java)
 
@@ -57,12 +61,23 @@ class ProfileFragment : Fragment() {
             handleLogoutButtonClick()
         }
 
+        val manageBtn : Button = binding.btnManageUsers
+        manageBtn.setOnClickListener {
+            handleManUsersButtonClick()
+        }
+
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun handleManUsersButtonClick() {
+        var fr = fragmentManager?.beginTransaction()
+        fr?.replace(R.id.nav_host_fragment_activity_home, UserManagmentFragment())
+        fr?.commit()
     }
 
     private fun handleLogoutButtonClick() {

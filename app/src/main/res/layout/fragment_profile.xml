@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/bg"
-    tools:context=".ui.profile.ProfileFragment">
+    tools:context=".ui.profile.ProfileFragment"
+    >
 
     <TextView
         android:id="@+id/title_profile"
@@ -117,10 +118,19 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btnManageUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:paddingHorizontal="24dp"
+        android:text="@string/manage_btn_title"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
+        />
+
+    <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:paddingHorizontal="24dp"
-        android:text="@string/logout_btn_title"
-        />
+        android:text="@string/logout_btn_title" />
 </LinearLayout>
