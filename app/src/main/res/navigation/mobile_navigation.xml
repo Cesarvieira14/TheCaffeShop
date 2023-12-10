@@ -18,15 +18,25 @@
         tools:layout="@layout/fragment_store" />
 
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.example.thecaffeshop.ui.profile.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
-
-    <fragment
         android:id="@+id/navigation_orders"
         android:name="com.example.thecaffeshop.ui.orders.OrdersFragment"
         android:label="@string/title_orders"
         tools:layout="@layout/fragment_orders" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.thecaffeshop.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_profile_user_management3"
+            app:destination="@id/navigation_profile_user_management" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile_user_management"
+        android:name="com.example.thecaffeshop.ui.profile.managment.UserManagmentFragment"
+        android:label="@string/title_orders"
+        tools:layout="@layout/fragment_user_managment" />
 
 </navigation>
