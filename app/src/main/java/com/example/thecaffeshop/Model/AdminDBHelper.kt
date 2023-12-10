@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.Model
+package com.example.thecaffeshop.model
 
 import android.annotation.SuppressLint
 import android.content.ContentValues

@@ -3,15 +3,14 @@ package com.example.thecaffeshop
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
-import com.example.thecaffeshop.Model.AdminDBHelper
-import com.example.thecaffeshop.Model.User
-import com.example.thecaffeshop.Model.CustomerDBHelper
+import com.example.thecaffeshop.model.AdminDBHelper
+import com.example.thecaffeshop.model.User
+import com.example.thecaffeshop.model.CustomerDBHelper
 import com.example.thecaffeshop.utils.Encryption
 
 class RegisterPage : AppCompatActivity() {

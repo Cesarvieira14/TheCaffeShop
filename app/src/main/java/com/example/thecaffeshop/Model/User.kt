@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.Model
+package com.example.thecaffeshop.model
 
 data class User(
     val id: Int,

@@ -3,15 +3,12 @@ package com.example.thecaffeshop
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.thecaffeshop.Model.AdminDBHelper
-import com.example.thecaffeshop.Model.CustomerDBHelper
+import com.example.thecaffeshop.model.AdminDBHelper
+import com.example.thecaffeshop.model.CustomerDBHelper
 import com.example.thecaffeshop.utils.Encryption
-import com.example.thecaffeshop.utils.Session
 import com.example.thecaffeshop.utils.Session.admin
 import com.example.thecaffeshop.utils.Session.userId
 import com.example.thecaffeshop.utils.Session.userPreference
@@ -36,7 +33,7 @@ class LoginPage : AppCompatActivity() {
 
         val userPrefs = userPreference(this)
         if (userPrefs?.userId ?: 0 > 0) {
-            val menu = Intent(this, MenuPage::class.java)
+            val menu = Intent(this, HomeActivity::class.java)
             startActivity(menu)
         }
     }
@@ -57,7 +54,7 @@ class LoginPage : AppCompatActivity() {
 
         if (authenticateUser(username, password)) {
             // User exists, proceed to next activity
-            val menu = Intent(this, MenuPage::class.java)
+            val menu = Intent(this, HomeActivity::class.java)
             startActivity(menu)
             Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show()
         }
