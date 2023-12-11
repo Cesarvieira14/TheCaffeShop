@@ -42,7 +42,7 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
     fun getAllProducts(): ArrayList<Product> {
         val db: SQLiteDatabase = this.readableDatabase
 
-        val sqlStatement = "SELECT * FROM $TableName WHERE $Column_ProdImage = ?"
+        val sqlStatement = "SELECT * FROM $TableName"
 
         val cursor: Cursor = db.rawQuery(sqlStatement, arrayOf())
 

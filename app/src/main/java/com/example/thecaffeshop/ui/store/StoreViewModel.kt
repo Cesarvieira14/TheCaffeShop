@@ -11,6 +11,10 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
     private val productDBHelper: ProductDBHelper = ProductDBHelper(application.applicationContext)
 
     val products: MutableLiveData<ArrayList<Product>> by lazy {
-        MutableLiveData<ArrayList<Product>>(productDBHelper.getAllProducts())
+        MutableLiveData<ArrayList<Product>>()
+    }
+
+    init {
+        products.value = productDBHelper.getAllProducts()
     }
 }

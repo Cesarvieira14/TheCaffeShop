@@ -1,5 +1,6 @@
 package com.example.thecaffeshop.ui.store
 
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.thecaffeshop.databinding.FragmentStoreBinding
+import com.example.thecaffeshop.model.Product
+
 
 class StoreFragment : Fragment() {
 
@@ -28,11 +31,20 @@ class StoreFragment : Fragment() {
         val root: View = binding.root
 
         val productsSpinner: Spinner = binding.productsSpinner
-//        storeViewModel.products.observe(viewLifecycleOwner) {
-//            val adp: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, it.arr);
-//
-//            productsSpinner.adapter = adp
-//        }
+        storeViewModel.products.observe(viewLifecycleOwner) { products ->
+            val productsArray = ArrayList<String>()
+
+            products.forEach { product ->
+                productsArray.add(product.prodName)
+            }
+
+            val adapter: ArrayAdapter<String> = ArrayAdapter(
+                this.requireActivity().applicationContext,
+                R.layout.simple_spinner_dropdown_item,
+                productsArray
+            );
+            productsSpinner.adapter = adapter
+        }
 
         return root
     }

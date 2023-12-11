@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.example.thecaffeshop.LoginActivity
 import com.example.thecaffeshop.R
@@ -75,9 +76,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun handleManUsersButtonClick() {
-        var fr = fragmentManager?.beginTransaction()
-        fr?.replace(R.id.nav_host_fragment_activity_home, UserManagmentFragment())
-        fr?.commit()
+//        this.activity?.supportFragmentManager?.commit {
+//            replace(R.id.nav_host_fragment_activity_home, UserManagmentFragment())
+//            setReorderingAllowed(false)
+//        }
     }
 
     private fun handleLogoutButtonClick() {
