@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">TheCaffeShop</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="title_home">Home</string>
+    <string name="title_activity_user_home">UserHomeActivity</string>
+    <string name="title_activity_admin_home">AdminHomeActivity</string>
+    <string name="title_user_home">Home</string>
     <string name="title_store">Store</string>
     <string name="title_orders">Orders</string>
     <string name="title_profile">Profile</string>
@@ -14,7 +15,9 @@
     <string name="profile_username_text">Username</string>
     <string name="profile_fullname_text">Full name</string>
     <string name="profile_phone_text">Phone</string>
-    <string name="usermanagement_page_title">User Management</string>
     <string name="logout_btn_title">Do logout</string>
-    <string name="manage_btn_title">Manage Users</string>
+    <string name="title_admin_orders">Manage orders</string>
+    <string name="title_admin_products">Manage products</string>
+    <string name="title_admin_users">Manage users</string>
+    <string name="title_admin_profile">Profile</string>
 </resources>

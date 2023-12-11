@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.ui.userProfile
+package com.example.thecaffeshop.ui.adminProfile
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,13 +10,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.thecaffeshop.ui.account.LoginActivity
-import com.example.thecaffeshop.databinding.FragmentProfileBinding
+import com.example.thecaffeshop.databinding.FragmentAdminProfileBinding
 import com.example.thecaffeshop.utils.Session
 import com.example.thecaffeshop.utils.Session.clearValues
 
-class ProfileFragment : Fragment() {
+class AdminProfileFragment : Fragment() {
 
-    private var _binding: FragmentProfileBinding? = null
+    private var _binding: FragmentAdminProfileBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -24,10 +24,12 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val profileViewModel =
-            ViewModelProvider(this).get(ProfileViewModel::class.java)
+       // this.activity?.actionBar?.hide()
 
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val profileViewModel =
+            ViewModelProvider(this).get(AdminProfileViewModel::class.java)
+
+        _binding = FragmentAdminProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         profileViewModel.fetchUserData()

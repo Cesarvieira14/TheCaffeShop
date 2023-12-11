@@ -7,7 +7,7 @@
     android:background="@color/bg"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.userProfile.ProfileFragment">
+    tools:context=".ui.userProfile.AdminProfileFragment">
 
     <TextView
         android:id="@+id/title_profile"
@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="24dp"
-        android:text="@string/profile_page_title"
+        android:text="Admin profile"
         android:textStyle="bold" />
 
     <LinearLayout
