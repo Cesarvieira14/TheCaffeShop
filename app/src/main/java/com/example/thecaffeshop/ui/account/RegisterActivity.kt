@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.ui.user
+package com.example.thecaffeshop.ui.account
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

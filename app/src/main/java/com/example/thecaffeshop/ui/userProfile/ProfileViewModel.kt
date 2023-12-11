@@ -1,8 +1,7 @@
-package com.example.thecaffeshop.ui.profile
+package com.example.thecaffeshop.ui.userProfile
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.thecaffeshop.model.CustomerDBHelper
 import com.example.thecaffeshop.utils.Session

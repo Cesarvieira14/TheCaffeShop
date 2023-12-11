@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.ui.profile.managment
+package com.example.thecaffeshop.ui.userOrders
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,11 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.thecaffeshop.databinding.FragmentUserManagmentBinding
+import com.example.thecaffeshop.databinding.FragmentOrdersBinding
 
-class UserManagmentFragment : Fragment() {
+class OrdersFragment : Fragment() {
 
-    private var _binding: FragmentUserManagmentBinding? = null
+    private var _binding: FragmentOrdersBinding? = null
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -18,14 +19,14 @@ class UserManagmentFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val userManagementViewModel =
-            ViewModelProvider(this).get(UserManagmentViewModel::class.java)
+        val ordersViewModel =
+            ViewModelProvider(this).get(OrdersViewModel::class.java)
 
-        _binding = FragmentUserManagmentBinding.inflate(inflater, container, false)
+        _binding = FragmentOrdersBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         return root
-    }
+        }
 
     override fun onDestroyView() {
         super.onDestroyView()

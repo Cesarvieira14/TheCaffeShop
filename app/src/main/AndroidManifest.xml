@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,24 +16,23 @@
         android:theme="@style/Theme.TheCaffeShop"
         tools:targetApi="31">
         <activity
-            android:name=".ui.store.ProductActivity"
+            android:name=".ui.userStore.ProductActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".ui.userHome.HomeActivity"
             android:exported="false"
             android:label="@string/title_activity_home" />
         <activity
-            android:name=".ui.user.RegisterActivity"
+            android:name=".ui.account.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.user.LoginActivity"
+            android:name=".ui.account.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

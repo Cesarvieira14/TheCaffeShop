@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.ui.orders
+package com.example.thecaffeshop.ui.userOrders
 
 import androidx.lifecycle.ViewModel
 

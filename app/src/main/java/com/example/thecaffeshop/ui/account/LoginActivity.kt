@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.ui.user
+package com.example.thecaffeshop.ui.account
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.thecaffeshop.ui.home.HomeActivity
+import com.example.thecaffeshop.ui.userHome.HomeActivity
 import com.example.thecaffeshop.R
 import com.example.thecaffeshop.model.CustomerDBHelper
 import com.example.thecaffeshop.utils.Encryption

@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.ui.profile.managment
+package com.example.thecaffeshop.ui.userProfile.managment
 
 import androidx.lifecycle.ViewModel
 

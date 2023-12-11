@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.ui.home
+package com.example.thecaffeshop.ui.userHome
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +17,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // supportActionBar?.hide()
+        supportActionBar?.hide()
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)

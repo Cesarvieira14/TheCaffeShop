@@ -4,133 +4,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="@color/bg"
-    tools:context=".ui.profile.ProfileFragment"
-    >
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.userProfile.ProfileFragment">
 
     <TextView
         android:id="@+id/title_profile"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"
+        android:layout_marginVertical="24dp"
         android:text="@string/profile_page_title"
-        />
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:text="@string/profile_email_text"
-            android:layout_marginRight="12dp"
-            />
-        <TextView
-            android:id="@+id/profile_userEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:text=""
-            />
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_weight="0.8"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:text="@string/profile_username_text"
-            android:layout_marginRight="12dp"
-            />
-        <TextView
-            android:id="@+id/profile_userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:text=""
-            />
-    </LinearLayout>
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:text="@string/profile_fullname_text"
-            android:layout_marginRight="12dp"
-            />
-        <TextView
-            android:id="@+id/profile_userFullName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:text=""
-            />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/profile_email_text"
+                android:textAlignment="center"
+                android:textSize="16sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/profile_userEmail"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="email"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:text="@string/profile_phone_text"
-            android:layout_marginRight="12dp"
-            />
-        <TextView
-            android:id="@+id/profile_userPhone"
-            android:layout_width="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/profile_username_text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/profile_userName"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="username"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:text=""
-            />
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/profile_fullname_text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/profile_userFullName"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fullname"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/profile_phone_text"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/profile_userPhone"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="phone_number"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/btnManageUsers"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:paddingHorizontal="24dp"
-        android:text="@string/manage_btn_title"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="50dp"
-        />
+        android:layout_marginBottom="10dp"
+        android:text="@string/manage_btn_title" />
 
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:paddingHorizontal="24dp"
+        android:layout_marginBottom="75dp"
         android:text="@string/logout_btn_title" />
 </LinearLayout>

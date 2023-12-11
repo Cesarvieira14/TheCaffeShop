@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.thecaffeshop.ui.home.HomeFragment"
+        android:name="com.example.thecaffeshop.ui.userHome.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_store"
-        android:name="com.example.thecaffeshop.ui.store.StoreFragment"
+        android:name="com.example.thecaffeshop.ui.userStore.StoreFragment"
         android:label="@string/title_store"
         tools:layout="@layout/fragment_store" />
 
     <fragment
         android:id="@+id/navigation_orders"
-        android:name="com.example.thecaffeshop.ui.orders.OrdersFragment"
+        android:name="com.example.thecaffeshop.ui.userOrders.OrdersFragment"
         android:label="@string/title_orders"
         tools:layout="@layout/fragment_orders" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.thecaffeshop.ui.profile.ProfileFragment"
+        android:name="com.example.thecaffeshop.ui.userProfile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/navigation_profile_user_management"
-        android:name="com.example.thecaffeshop.ui.profile.managment.UserManagmentFragment"
+        android:name="com.example.thecaffeshop.ui.userProfile.managment.UserManagmentFragment"
         android:label="@string/title_orders"
         tools:layout="@layout/fragment_user_managment" />
 

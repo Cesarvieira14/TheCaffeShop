@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.ui.profile
+package com.example.thecaffeshop.ui.userProfile
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.thecaffeshop.ui.user.LoginActivity
+import com.example.thecaffeshop.ui.account.LoginActivity
 import com.example.thecaffeshop.databinding.FragmentProfileBinding
 import com.example.thecaffeshop.utils.Session
 import com.example.thecaffeshop.utils.Session.clearValues

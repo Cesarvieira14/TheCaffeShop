@@ -10,22 +10,24 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/txtRegister"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/lato"
-        android:text="--Welcome--"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textColor="@color/black"
-        android:textSize="24sp" />
+        android:text="--Welcome--" />
+
+    <ImageView
+        android:layout_width="146dp"
+        android:layout_height="143dp"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/ic_launcher" />
 
     <Button
         android:id="@+id/startButton"
         android:layout_width="150dp"
         android:layout_height="70dp"
-        android:fontFamily="@font/lato"
         android:text="Get started" />
 
 </LinearLayout>

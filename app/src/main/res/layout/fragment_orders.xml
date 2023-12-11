@@ -6,14 +6,13 @@
     android:background="@color/bg"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.orders.OrdersFragment">
+    tools:context=".ui.userOrders.OrdersFragment">
 
     <TextView
         android:id="@+id/text_dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="28sp"
-        android:textStyle="bold"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
         android:text="@string/orders_page_title"/>
 </LinearLayout>

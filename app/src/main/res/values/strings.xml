@@ -8,11 +8,12 @@
     <string name="home_page_title">Welcome</string>
     <string name="store_page_title">Menu</string>
     <string name="orders_page_title">Orders</string>
+    <string name="add_to_cart">Add to cart</string>
     <string name="profile_page_title">Your profile</string>
-    <string name="profile_email_text">Email: </string>
-    <string name="profile_username_text">Username: </string>
-    <string name="profile_fullname_text">Full name: </string>
-    <string name="profile_phone_text">Phone: </string>
+    <string name="profile_email_text">Email</string>
+    <string name="profile_username_text">Username</string>
+    <string name="profile_fullname_text">Full name</string>
+    <string name="profile_phone_text">Phone</string>
     <string name="usermanagement_page_title">User Management</string>
     <string name="logout_btn_title">Do logout</string>
     <string name="manage_btn_title">Manage Users</string>

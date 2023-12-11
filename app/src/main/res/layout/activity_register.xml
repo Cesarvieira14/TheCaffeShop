@@ -7,19 +7,14 @@
     android:background="#DDA072"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.user.RegisterActivity">
+    tools:context=".ui.account.RegisterActivity">
 
     <TextView
-        android:id="@+id/txtRegister"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="80dp"
-        android:fontFamily="@font/lato"
-        android:text="--Register--"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/black"
-        android:textSize="24sp" />
+        android:layout_marginBottom="60dp"
+        android:text="--Register--" />
 
     <EditText
         android:id="@+id/editTextFullname"

@@ -1,8 +1,7 @@
-package com.example.thecaffeshop.ui.store
+package com.example.thecaffeshop.ui.userStore
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.model.ProductDBHelper

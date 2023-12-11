@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.ui.home
+package com.example.thecaffeshop.ui.userHome
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

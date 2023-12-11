@@ -6,7 +6,7 @@
     android:background="@color/bg"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.store.StoreFragment">
+    tools:context=".ui.userStore.StoreFragment">
 
     <TextView
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.thecaffeshop.ui.store
+package com.example.thecaffeshop.ui.userStore
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -29,9 +29,11 @@ class ProductsListAdapter(
 
         val titleText = rowView.findViewById(R.id.product_list_title) as TextView
         val imageView = rowView.findViewById(R.id.product_list_icon) as ImageView
+        val priceView = rowView.findViewById(R.id.product_list_price) as TextView
 
-        // Set product name
         titleText.text = currentProduct.prodName
+        val formattedPrice = String.format("%.2f", currentProduct.prodPrice)
+        priceView.text = "£$formattedPrice"
 
         // Set product image
         val executor = Executors.newSingleThreadExecutor()

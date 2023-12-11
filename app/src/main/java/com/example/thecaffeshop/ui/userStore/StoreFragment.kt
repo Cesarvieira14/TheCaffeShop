@@ -1,13 +1,11 @@
-package com.example.thecaffeshop.ui.store
+package com.example.thecaffeshop.ui.userStore
 
-import android.R
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.thecaffeshop.databinding.FragmentStoreBinding
@@ -50,14 +48,8 @@ class StoreFragment : Fragment() {
                 val productAtPosition = adapterView.getItemAtPosition(position) as Product
 
                 val productActivity = Intent(context, ProductActivity::class.java)
-                // productActivity.putExtra(ProductActivity.PRODUCT_TAG, productAtPosition)
+                productActivity.putExtra(ProductActivity.PRODUCT_TAG, productAtPosition)
                 startActivity(productActivity)
-
-                Toast.makeText(
-                    context,
-                    "Click on item ${productAtPosition.prodName}",
-                    Toast.LENGTH_LONG
-                ).show()
             }
 
             productsListView.adapter = adapter
