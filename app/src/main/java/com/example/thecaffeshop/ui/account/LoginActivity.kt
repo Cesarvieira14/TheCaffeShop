@@ -24,6 +24,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        supportActionBar?.hide()
+
+        // TODO: handle back button to not go to user page when logged out
+
         findViewById<Button>(R.id.btnLogin).setOnClickListener {
             handleLoginButtonClick()
         }

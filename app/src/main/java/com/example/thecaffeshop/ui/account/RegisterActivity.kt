@@ -24,10 +24,9 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        val actionBar: ActionBar? = supportActionBar
-        // Enable the Up button
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = "Create your account"
 
         findViewById<Button>(R.id.btnRegisterUser).setOnClickListener {
             handleRegisterButtonClick()
