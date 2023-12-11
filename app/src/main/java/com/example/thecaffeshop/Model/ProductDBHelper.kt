@@ -69,6 +69,6 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
         val prodImage = cursor.getString(cursor.getColumnIndex(Column_ProdImage))
         val prodAvailable = cursor.getInt(cursor.getColumnIndex(Column_ProdAvailable)) != 0
 
-        return Product(prodId, prodName, prodDescription, prodPrice, prodImage, prodAvailable)
+        return Product(prodId, prodName, prodDescription, prodPrice.toDouble(), prodImage, prodAvailable)
     }
 }

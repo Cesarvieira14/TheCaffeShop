@@ -1,12 +1,12 @@
-package com.example.thecaffeshop
+package com.example.thecaffeshop.ui.home
 
-import android.app.ActionBar
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.ActivityHomeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

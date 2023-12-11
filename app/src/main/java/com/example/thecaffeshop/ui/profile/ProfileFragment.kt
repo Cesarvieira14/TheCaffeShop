@@ -8,12 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
-import com.example.thecaffeshop.LoginActivity
-import com.example.thecaffeshop.R
+import com.example.thecaffeshop.ui.user.LoginActivity
 import com.example.thecaffeshop.databinding.FragmentProfileBinding
-import com.example.thecaffeshop.ui.profile.managment.UserManagmentFragment
 import com.example.thecaffeshop.utils.Session
 import com.example.thecaffeshop.utils.Session.clearValues
 

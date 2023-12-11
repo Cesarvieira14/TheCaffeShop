@@ -1,17 +1,17 @@
 package com.example.thecaffeshop.ui.store
 
 import android.R
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.thecaffeshop.databinding.FragmentStoreBinding
 import com.example.thecaffeshop.model.Product
-
 
 class StoreFragment : Fragment() {
 
@@ -30,20 +30,37 @@ class StoreFragment : Fragment() {
         _binding = FragmentStoreBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val productsSpinner: Spinner = binding.productsSpinner
-        storeViewModel.products.observe(viewLifecycleOwner) { products ->
+        val context = this.requireActivity().applicationContext;
+
+        val productsListView: ListView = binding.productsListView
+        storeViewModel.products.observe(viewLifecycleOwner) { productsList ->
             val productsArray = ArrayList<String>()
 
-            products.forEach { product ->
+            productsList.forEach { product ->
                 productsArray.add(product.prodName)
             }
 
-            val adapter: ArrayAdapter<String> = ArrayAdapter(
-                this.requireActivity().applicationContext,
-                R.layout.simple_spinner_dropdown_item,
-                productsArray
+            val adapter = ProductsListAdapter(
+                context,
+                layoutInflater,
+                productsList
             );
-            productsSpinner.adapter = adapter
+
+            binding.productsListView.setOnItemClickListener() { adapterView, _, position, id ->
+                val productAtPosition = adapterView.getItemAtPosition(position) as Product
+
+                val productActivity = Intent(context, ProductActivity::class.java)
+                // productActivity.putExtra(ProductActivity.PRODUCT_TAG, productAtPosition)
+                startActivity(productActivity)
+
+                Toast.makeText(
+                    context,
+                    "Click on item ${productAtPosition.prodName}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            productsListView.adapter = adapter
         }
 
         return root

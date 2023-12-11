@@ -4,7 +4,7 @@ data class Product(
     val prodId: Int,
     var prodName: String,
     var prodDescription: String,
-    var prodPrice: Float,
+    var prodPrice: Double,
     var prodImage: String,
     var prodAvailable: Boolean,
 ) {
