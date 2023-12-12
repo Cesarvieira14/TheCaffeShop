@@ -23,9 +23,6 @@ class CustomerDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nu
     val Column_CusPassword = "CusPassword"
     val Column_CusIsActive = "CusIsActive"
 
-    /*************************/
-
-
     override fun onCreate(db: SQLiteDatabase?) {
 
         val sqlCreateStatement: String = "CREATE TABLE " + TableName + " ( " + Column_ID +
@@ -53,8 +50,8 @@ class CustomerDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nu
         cv.put(Column_CusFullName, customer.fullName)
         cv.put(Column_CusEmail, customer.email)
         cv.put(Column_CusPhoneNo, customer.phoneNo)
-        cv.put(Column_CusUserName, customer.cusUserName)
-        cv.put(Column_CusPassword, customer.cusPassword)
+        cv.put(Column_CusUserName, customer.userName)
+        cv.put(Column_CusPassword, customer.password)
         cv.put(Column_CusIsActive, customer.isActive)
 
         val success = db.insert(TableName, null, cv)
@@ -97,22 +94,21 @@ class CustomerDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nu
             return null
         }
 
-        // Close the cursor and database connection
         cursor.close()
         db.close()
     }
 
     @SuppressLint("Range")
-    fun parseUser (cursor: Cursor): User {
+    fun parseUser(cursor: Cursor): User {
         val id = cursor.getInt(cursor.getColumnIndex(Column_ID))
         val fullName = cursor.getString(cursor.getColumnIndex(Column_CusFullName))
         val email = cursor.getString(cursor.getColumnIndex(Column_CusEmail))
         val phoneNo = cursor.getString(cursor.getColumnIndex(Column_CusPhoneNo))
-        val cusUserName = cursor.getString(cursor.getColumnIndex(Column_CusUserName))
-        val cusPassword = cursor.getString(cursor.getColumnIndex(Column_CusPassword))
+        val userName = cursor.getString(cursor.getColumnIndex(Column_CusUserName))
+        val password = cursor.getString(cursor.getColumnIndex(Column_CusPassword))
         val isActive = cursor.getInt(cursor.getColumnIndex(Column_CusIsActive)) != 0
 
-        return User(id, fullName, email, phoneNo, cusUserName, cusPassword, isActive, false)
+        return User(id, fullName, email, phoneNo, userName, password, isActive, false)
     }
 }
 

@@ -1,4 +1,4 @@
-package com.example.thecaffeshop
+package com.example.thecaffeshop.ui.adminOrders
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.ActivityAdminBinding
 
 class AdminHomeActivity : AppCompatActivity() {
@@ -15,6 +16,8 @@ class AdminHomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        supportActionBar?.hide()
 
         binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -26,7 +29,10 @@ class AdminHomeActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_user_home, R.id.navigation_admin_users, R.id.navigation_admin_products
+                R.id.navigation_admin_orders,
+                R.id.navigation_admin_users,
+                R.id.navigation_admin_products,
+                R.id.navigation_admin_profile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

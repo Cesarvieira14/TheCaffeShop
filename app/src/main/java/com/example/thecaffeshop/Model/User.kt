@@ -5,8 +5,8 @@ data class User(
     var fullName: String,
     var email: String,
     var phoneNo: String,
-    var cusUserName: String,
-    var cusPassword: String,
+    var userName: String,
+    var password: String,
     var isActive: Boolean,
     var isAdmin: Boolean
 ) {
@@ -16,8 +16,8 @@ data class User(
                 "fullName='$fullName', " +
                 "email='$email', " +
                 "phoneNo='$phoneNo', " +
-                "userName='$cusUserName', " +
-                "password='$cusPassword', " +
+                "userName='$userName', " +
+                "password='$password', " +
                 "isActive=$isActive" +
                 "isAdmin=$isAdmin" +
                 ")"

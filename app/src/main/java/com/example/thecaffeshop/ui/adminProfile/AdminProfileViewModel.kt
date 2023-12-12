@@ -3,13 +3,14 @@ package com.example.thecaffeshop.ui.adminProfile
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.thecaffeshop.model.AdminDBHelper
 import com.example.thecaffeshop.model.CustomerDBHelper
 import com.example.thecaffeshop.utils.Session
 import com.example.thecaffeshop.utils.Session.userId
 
 class AdminProfileViewModel(application: Application) : AndroidViewModel(application) {
-    private val customerDBHelper: CustomerDBHelper = CustomerDBHelper(application.applicationContext)
-    private val userId = Session.userPreference(application.applicationContext).userId
+    private val adminDBHelper: AdminDBHelper = AdminDBHelper(application.applicationContext)
+    private val adminId = Session.userPreference(application.applicationContext).userId
 
     val userName: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
@@ -25,13 +26,13 @@ class AdminProfileViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun fetchUserData () {
-        val customerUser = customerDBHelper.getUserByUserId(userId)
+        val adminUser = adminDBHelper.getAdminByAdminId(adminId)
 
-        if (customerUser != null) {
-            userName.value = customerUser.cusUserName
-            userEmail.value = customerUser.email
-            userFullName.value = customerUser.fullName
-            userPhone.value = customerUser.phoneNo
+        if (adminUser != null) {
+            userName.value = adminUser.userName
+            userEmail.value = adminUser.email
+            userFullName.value = adminUser.fullName
+            userPhone.value = adminUser.phoneNo
         }
     }
 }

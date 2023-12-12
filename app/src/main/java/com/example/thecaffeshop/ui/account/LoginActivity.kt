@@ -8,7 +8,9 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.thecaffeshop.ui.userHome.HomeActivity
 import com.example.thecaffeshop.R
+import com.example.thecaffeshop.model.AdminDBHelper
 import com.example.thecaffeshop.model.CustomerDBHelper
+import com.example.thecaffeshop.ui.adminOrders.AdminHomeActivity
 import com.example.thecaffeshop.utils.Encryption
 import com.example.thecaffeshop.utils.Session.admin
 import com.example.thecaffeshop.utils.Session.userId
@@ -18,7 +20,7 @@ import com.example.thecaffeshop.utils.Session.username
 class LoginActivity : AppCompatActivity() {
 
     private val customerDBHelper: CustomerDBHelper = CustomerDBHelper(this)
-//    private val adminDBHelper: AdminDBHelper = AdminDBHelper(this)
+    private val adminDBHelper: AdminDBHelper = AdminDBHelper(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,41 +60,74 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if (authenticateUser(username, password)) {
+            val isAdmin = userPreference(this.applicationContext).admin
             // User exists, proceed to next activity
-            val menu = Intent(this, HomeActivity::class.java)
-            startActivity(menu)
+            if (isAdmin) {
+                val adminHome = Intent(this, AdminHomeActivity::class.java)
+                startActivity(adminHome)
+            } else {
+                val userHome = Intent(this, HomeActivity::class.java)
+                startActivity(userHome)
+            }
+
             Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun authenticateUser(username: String, password: String): Boolean {
         val customerUser = customerDBHelper.getUserByUsername(username)
-        // TODO: handle admin login
-        // val adminUser = adminDBHelper.getUserByUsername(username)
+        val adminUser = adminDBHelper.getAdminByUsername(username)
 
-        if (customerUser == null) {
+        if (customerUser == null && adminUser == null) {
             Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
             return false
         }
 
-        if (!customerUser!!.isActive) {
-            Toast.makeText(this, "Your account is not active", Toast.LENGTH_SHORT).show()
-            return false
+        // Check user details
+        if (customerUser != null) {
+            if (!customerUser!!.isActive) {
+                Toast.makeText(this, "Your account is not active", Toast.LENGTH_SHORT).show()
+                return false
+            }
+
+            // Encrypt submitted password to check with the stored password
+            val encryptedPassword = Encryption.hashString(password)
+            if (customerUser!!.password != encryptedPassword) {
+                Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
+                return false
+            }
+
+            val userPrefs = userPreference(this.applicationContext)
+            userPrefs.userId = customerUser!!.id
+            userPrefs.username = customerUser!!.userName
+            userPrefs.admin = false
+
+            return true;
         }
 
-        // Encrypt submitted password to check with the stored password
-        val encryptedPassword = Encryption.hashString(password)
-        if (customerUser!!.cusPassword != encryptedPassword) {
-            Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
-            return false
+        // Check admin details
+        if (adminUser != null) {
+            if (!adminUser!!.isActive) {
+                Toast.makeText(this, "Your account is not active", Toast.LENGTH_SHORT).show()
+                return false
+            }
+
+            // Encrypt submitted password to check with the stored password
+            val encryptedPassword = Encryption.hashString(password)
+            if (adminUser!!.password != encryptedPassword) {
+                Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
+                return false
+            }
+
+            val userPrefs = userPreference(this.applicationContext)
+            userPrefs.userId = adminUser!!.id
+            userPrefs.username = adminUser!!.userName
+            userPrefs.admin = true
+
+            return true;
         }
 
-        val userPrefs = userPreference(this.applicationContext)
-        userPrefs.userId = customerUser!!.id
-        userPrefs.username = customerUser!!.cusUserName
-        userPrefs.admin = false
-
-        return true
+        return false
     }
 }
 

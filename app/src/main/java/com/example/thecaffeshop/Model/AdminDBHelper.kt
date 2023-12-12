@@ -47,8 +47,8 @@ class AdminDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
         cv.put(Column_AdminFullName, admin.fullName)
         cv.put(Column_AdminEmail, admin.email)
         cv.put(Column_AdminPhoneNo, admin.phoneNo)
-        cv.put(Column_AdminUserName, admin.cusUserName)
-        cv.put(Column_AdminPassword, admin.cusPassword)
+        cv.put(Column_AdminUserName, admin.userName)
+        cv.put(Column_AdminPassword, admin.password)
         cv.put(Column_AdminIsActive, admin.isActive)
 
         val success = db.insert(TableName, null, cv)
@@ -56,8 +56,27 @@ class AdminDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
         return success != -1L
     }
 
-    @SuppressLint("Range")
-    fun getUserByUsername(username: String): User? {
+    fun getAdminByAdminId(adminId: Int): User? {
+        val db: SQLiteDatabase = this.readableDatabase
+
+        val sqlStatement = "SELECT * FROM $TableName WHERE $Column_AdminId = ?"
+        val selectionArgs: Array<String> = arrayOf(adminId.toString())
+
+        val cursor: Cursor = db.rawQuery(sqlStatement, selectionArgs)
+
+        val hasUser = cursor.moveToFirst()
+
+        if (hasUser) {
+            return parseUser(cursor)
+        } else {
+            return null
+        }
+
+        cursor.close()
+        db.close()
+    }
+
+    fun getAdminByUsername(username: String): User? {
         val db: SQLiteDatabase = this.readableDatabase
 
         val sqlStatement = "SELECT * FROM $TableName WHERE $Column_AdminUserName = ?"
@@ -67,26 +86,26 @@ class AdminDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
 
         val hasUser = cursor.moveToFirst()
 
-        val user: User
         if (hasUser) {
-            val id = cursor.getInt(cursor.getColumnIndex(Column_AdminId))
-            val fullName = cursor.getString(cursor.getColumnIndex(Column_AdminFullName))
-            val email = cursor.getString(cursor.getColumnIndex(Column_AdminEmail))
-            val phoneNo = cursor.getString(cursor.getColumnIndex(Column_AdminPhoneNo))
-            val cusUserName = cursor.getString(cursor.getColumnIndex(Column_AdminUserName))
-            val cusPassword = cursor.getString(cursor.getColumnIndex(Column_AdminPassword))
-            val isActive = cursor.getInt(cursor.getColumnIndex(Column_AdminIsActive)) != 0
-
-            user = User(id, fullName, email, phoneNo, cusUserName, cusPassword, isActive, true)
-
-            return user
+            return parseUser(cursor)
         } else {
             return null
         }
 
-        // Close the cursor and database connection
         cursor.close()
         db.close()
     }
 
+    @SuppressLint("Range")
+    fun parseUser(cursor: Cursor): User {
+        val id = cursor.getInt(cursor.getColumnIndex(Column_AdminId))
+        val fullName = cursor.getString(cursor.getColumnIndex(Column_AdminFullName))
+        val email = cursor.getString(cursor.getColumnIndex(Column_AdminEmail))
+        val phoneNo = cursor.getString(cursor.getColumnIndex(Column_AdminPhoneNo))
+        val userName = cursor.getString(cursor.getColumnIndex(Column_AdminUserName))
+        val password = cursor.getString(cursor.getColumnIndex(Column_AdminPassword))
+        val isActive = cursor.getInt(cursor.getColumnIndex(Column_AdminIsActive)) != 0
+
+        return User(id, fullName, email, phoneNo, userName, password, isActive, true)
+    }
 }

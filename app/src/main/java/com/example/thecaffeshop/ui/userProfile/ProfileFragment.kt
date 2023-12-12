@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.thecaffeshop.MainActivity
 import com.example.thecaffeshop.ui.account.LoginActivity
 import com.example.thecaffeshop.databinding.FragmentProfileBinding
 import com.example.thecaffeshop.utils.Session
@@ -69,7 +70,7 @@ class ProfileFragment : Fragment() {
         val userPrefs = Session.userPreference(this.requireActivity().applicationContext)
         userPrefs?.clearValues = {}
 
-        val login = Intent(this.context, LoginActivity::class.java)
+        val login = Intent(this.context, MainActivity::class.java)
         startActivity(login)
     }
 }

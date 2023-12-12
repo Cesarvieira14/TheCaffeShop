@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import com.example.thecaffeshop.ui.userHome.HomeActivity
 import com.example.thecaffeshop.ui.account.LoginActivity
+import com.example.thecaffeshop.ui.adminOrders.AdminHomeActivity
 import com.example.thecaffeshop.utils.Session
+import com.example.thecaffeshop.utils.Session.admin
 import com.example.thecaffeshop.utils.Session.userId
 
 class MainActivity : AppCompatActivity() {
@@ -20,8 +22,13 @@ class MainActivity : AppCompatActivity() {
 
         val userPrefs = Session.userPreference(this.applicationContext)
         if (userPrefs?.userId ?: 0 > 0) {
-            val menu = Intent(this, HomeActivity::class.java)
-            startActivity(menu)
+            if (userPrefs?.admin == true) {
+                val menu = Intent(this, AdminHomeActivity::class.java)
+                startActivity(menu)
+            } else {
+                val menu = Intent(this, HomeActivity::class.java)
+                startActivity(menu)
+            }
         }
     }
 

@@ -28,7 +28,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         val customerUser = customerDBHelper.getUserByUserId(userId)
 
         if (customerUser != null) {
-            userName.value = customerUser.cusUserName
+            userName.value = customerUser.userName
             userEmail.value = customerUser.email
             userFullName.value = customerUser.fullName
             userPhone.value = customerUser.phoneNo
