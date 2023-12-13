@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ui.userStore.CartFragment">
 
     <TextView
@@ -19,6 +19,24 @@
         android:id="@+id/cart_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="0.9"
         android:padding="12dp" />
+
+    <TextView
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:id="@+id/cart_total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:text="Total: X" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cart_submit_order_btn"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_order"
+        android:layout_marginBottom="70dp"
+        android:textSize="14sp" />
 
 </LinearLayout>
