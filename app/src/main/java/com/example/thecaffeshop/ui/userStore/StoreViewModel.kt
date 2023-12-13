@@ -32,7 +32,9 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun removeFromCart (product: Product) {
-        _cart.value?.remove(product)
+        val currentList = _cart.value ?: arrayListOf()
+        currentList.remove(product)
+        _cart.value=currentList
     }
 
     fun clearCart () {
