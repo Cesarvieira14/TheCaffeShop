@@ -19,6 +19,7 @@ import com.example.thecaffeshop.utils.Session.username
 
 class LoginActivity : AppCompatActivity() {
 
+    //Initialize database helpers
     private val customerDBHelper: CustomerDBHelper = CustomerDBHelper(this)
     private val adminDBHelper: AdminDBHelper = AdminDBHelper(this)
 

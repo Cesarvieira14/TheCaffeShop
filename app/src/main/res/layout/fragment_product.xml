@@ -32,6 +32,14 @@
         style="@style/TextAppearance.Material3.BodyMedium"
         android:text="Product_description"
          />
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:text="Product_price"
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/product_add_cart"

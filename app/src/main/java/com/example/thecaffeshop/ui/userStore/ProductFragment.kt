@@ -43,6 +43,7 @@ class ProductFragment : Fragment() {
 
             binding.productTitle.text = product.prodName
             binding.productDescription.text = product.prodDescription
+            binding.productPrice.text = "£${"%.2f".format(product.prodPrice)}"
 
             // Set product image
             val executor = Executors.newSingleThreadExecutor()
