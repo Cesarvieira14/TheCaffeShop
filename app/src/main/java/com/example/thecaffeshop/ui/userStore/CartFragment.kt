@@ -1,5 +1,6 @@
 package com.example.thecaffeshop.ui.userStore
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -27,6 +28,7 @@ class CartFragment : Fragment() {
         return binding.root;
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,10 +57,31 @@ class CartFragment : Fragment() {
                 view?.findNavController()?.navigate(R.id.action_cartFragment_to_productFragment)
             }
             binding.cartListView.adapter = adapter
+
+            // Update total text view
+            var totalPrice: Double = 0.0
+            productsList.forEach {
+                totalPrice += it.prodPrice
+            }
+            binding.cartTotalPrice.text = "Total: £$totalPrice"
+
+            binding.cartSubmitOrderBtn.setOnClickListener {
+                handleNewOrder(productsList)
+            }
         }
     }
 
-    private fun handleProductRemove (product: Product) {
+    private fun handleNewOrder(productList: ArrayList<Product>) {
+        // TODO: submit new order to DB and more user to orders fragment
+
+        Toast.makeText(
+            this.context,
+            "Order made successfully!",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun handleProductRemove(product: Product) {
         storeViewModel.removeFromCart(product)
 
         Toast.makeText(

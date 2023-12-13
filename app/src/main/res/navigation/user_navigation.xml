@@ -48,9 +48,7 @@
         tools:layout="@layout/fragment_cart" >
         <action
             android:id="@+id/action_cartFragment_to_productFragment"
-            app:destination="@id/productFragment"
-            app:popUpTo="@id/navigation_user_store"
-            app:popUpToInclusive="true" />
+            app:destination="@id/productFragment" />
     </fragment>
 
     <include app:graph="@navigation/admin_navigation" />

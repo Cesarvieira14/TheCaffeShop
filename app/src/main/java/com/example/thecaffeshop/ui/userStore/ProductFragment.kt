@@ -6,11 +6,15 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentProductBinding
 import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.ui.userHome.HomeActivity
@@ -35,10 +39,11 @@ class ProductFragment : Fragment() {
 
         storeViewModel = ViewModelProvider(requireActivity()).get(StoreViewModel::class.java)
 
+        val actionBar = (activity as HomeActivity).supportActionBar
+        actionBar?.show()
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
         storeViewModel.product.observe(viewLifecycleOwner) { product ->
-            val actionBar = (activity as HomeActivity).supportActionBar
-            actionBar?.show()
-            actionBar?.setHomeButtonEnabled(true)
             actionBar?.title = "Store - ${product.prodName}"
 
             binding.productTitle.text = product.prodName
@@ -80,6 +85,8 @@ class ProductFragment : Fragment() {
             "${product.prodName} added to your cart!",
             Toast.LENGTH_SHORT
         ).show()
+
+        view?.findNavController()?.navigate(R.id.navigation_user_store)
     }
 
     override fun onDestroyView() {
