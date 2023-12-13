@@ -20,4 +20,6 @@
     <string name="title_admin_products">Manage products</string>
     <string name="title_admin_users">Manage users</string>
     <string name="title_admin_profile">Profile</string>
+    <string name="cart_title">Your cart</string>
+    <string name="go_to_cart_btn">Go to cart</string>
 </resources>

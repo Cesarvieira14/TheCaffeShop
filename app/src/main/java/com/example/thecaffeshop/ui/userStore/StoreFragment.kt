@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentStoreBinding
 import com.example.thecaffeshop.model.Product
 
@@ -22,40 +23,40 @@ class StoreFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val storeViewModel =
-            ViewModelProvider(this).get(StoreViewModel::class.java)
-
         _binding = FragmentStoreBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        val context = this.requireActivity().applicationContext;
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val productsListView: ListView = binding.productsListView
+        val storeViewModel =
+            ViewModelProvider(requireActivity()).get(StoreViewModel::class.java)
+
         storeViewModel.products.observe(viewLifecycleOwner) { productsList ->
-            val productsArray = ArrayList<String>()
-
-            productsList.forEach { product ->
-                productsArray.add(product.prodName)
-            }
-
             val adapter = ProductsListAdapter(
-                context,
+                requireActivity().applicationContext,
                 layoutInflater,
                 productsList
             );
 
-            binding.productsListView.setOnItemClickListener() { adapterView, _, position, id ->
+            binding.productsListView.setOnItemClickListener() { adapterView, _, position, _ ->
                 val productAtPosition = adapterView.getItemAtPosition(position) as Product
-
-                val productActivity = Intent(context, ProductActivity::class.java)
-                productActivity.putExtra(ProductActivity.PRODUCT_TAG, productAtPosition)
-                startActivity(productActivity)
+                storeViewModel.selectProduct(productAtPosition)
+                view?.findNavController()
+                    ?.navigate(R.id.action_navigation_user_store_to_productFragment)
             }
 
-            productsListView.adapter = adapter
+            binding.productsListView.adapter = adapter
         }
 
-        return root
+        storeViewModel.cart.observe(viewLifecycleOwner) { productsList ->
+            binding.goToCart.text = "Go to cart (${productsList.size})"
+        }
+
+        binding.goToCart.setOnClickListener {
+            view?.findNavController()?.navigate(R.id.action_navigation_user_store_to_cartFragment)
+        }
     }
 
     override fun onDestroyView() {

@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/user_navigation"
     app:startDestination="@+id/navigation_user_home">
 
     <fragment
@@ -15,7 +15,19 @@
         android:id="@+id/navigation_user_store"
         android:name="com.example.thecaffeshop.ui.userStore.StoreFragment"
         android:label="@string/title_store"
-        tools:layout="@layout/fragment_store" />
+        tools:layout="@layout/fragment_store" >
+        <action
+            android:id="@+id/action_navigation_user_store_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:popUpTo="@id/navigation_user_store"
+            app:popUpToInclusive="true"
+            app:popUpToSaveState="true" />
+        <action
+            android:id="@+id/action_navigation_user_store_to_productFragment"
+            app:destination="@id/productFragment"
+            app:popUpTo="@id/navigation_user_store"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_user_orders"
@@ -28,5 +40,42 @@
         android:name="com.example.thecaffeshop.ui.userProfile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.thecaffeshop.ui.userStore.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_productFragment"
+            app:destination="@id/productFragment"
+            app:popUpTo="@id/navigation_user_store"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <include app:graph="@navigation/admin_navigation" />
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.thecaffeshop.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.thecaffeshop.ui.account.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="com.example.thecaffeshop.ui.account.RegisterActivity"
+        android:label="activity_register"
+        tools:layout="@layout/activity_register" />
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.thecaffeshop.ui.userStore.ProductFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/fragment_product" />
 
 </navigation>

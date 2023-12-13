@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.thecaffeshop.MainActivity
-import com.example.thecaffeshop.ui.account.LoginActivity
 import com.example.thecaffeshop.databinding.FragmentAdminProfileBinding
+import com.example.thecaffeshop.ui.adminOrders.AdminHomeActivity
 import com.example.thecaffeshop.utils.Session
 import com.example.thecaffeshop.utils.Session.clearValues
 
@@ -70,7 +70,9 @@ class AdminProfileFragment : Fragment() {
         val userPrefs = Session.userPreference(this.requireActivity().applicationContext)
         userPrefs?.clearValues = {}
 
-        val login = Intent(this.context, MainActivity::class.java)
-        startActivity(login)
+        val main = Intent(this.context, MainActivity::class.java)
+        main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(main)
+        (activity as AdminHomeActivity).finish()
     }
 }

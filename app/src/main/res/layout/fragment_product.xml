@@ -7,7 +7,7 @@
     android:background="@color/bg"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.userStore.ProductActivity">
+    tools:context=".ui.userStore.ProductFragment">
 
     <ImageView
         android:id="@+id/product_image"
