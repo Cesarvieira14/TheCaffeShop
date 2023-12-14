@@ -63,7 +63,7 @@ class CartFragment : Fragment() {
             productsList.forEach {
                 totalPrice += it.prodPrice
             }
-            binding.cartTotalPrice.text = "Total: £$totalPrice"
+            binding.cartTotalPrice.text = "Total: £${"%.2f".format(totalPrice)}"
 
             binding.cartSubmitOrderBtn.setOnClickListener {
                 handleNewOrder(productsList)
