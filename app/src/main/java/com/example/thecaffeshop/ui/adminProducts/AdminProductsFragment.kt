@@ -48,7 +48,7 @@ class AdminProductsFragment : Fragment() {
                 val productAtPosition = adapterView.getItemAtPosition(position) as Product
                 storeViewModel.selectProduct(productAtPosition)
                  view?.findNavController()
-           //         ?.navigate(R.id.action_navigation_user_store_to_productFragment)
+                    ?.navigate(R.id.action_navigation_admin_products_to_manage_products)
             }
 
             binding.adminProductsListView.adapter = adapter
