@@ -34,10 +34,10 @@ class AdminProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val storeViewModel =
-            ViewModelProvider(requireActivity()).get(StoreViewModel::class.java)
+        val adminProductsViewModel =
+            ViewModelProvider(requireActivity()).get(AdminProductsViewModel::class.java)
 
-        storeViewModel.products.observe(viewLifecycleOwner) { productsList ->
+        adminProductsViewModel.products.observe(viewLifecycleOwner) { productsList ->
             val adapter = ProductsListAdapter(
                 requireActivity().applicationContext,
                 layoutInflater,
@@ -46,13 +46,14 @@ class AdminProductsFragment : Fragment() {
 
             binding.adminProductsListView.setOnItemClickListener() { adapterView, _, position, _ ->
                 val productAtPosition = adapterView.getItemAtPosition(position) as Product
-                storeViewModel.selectProduct(productAtPosition)
+                adminProductsViewModel.selectProduct(productAtPosition)
                  view?.findNavController()
                     ?.navigate(R.id.action_navigation_admin_products_to_manage_products)
             }
 
             binding.adminProductsListView.adapter = adapter
         }
+
     }
 
 

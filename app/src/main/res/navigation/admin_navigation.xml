@@ -30,7 +30,11 @@
         android:id="@+id/manageProduct_fragment"
         android:name="com.example.thecaffeshop.ui.adminProducts.ManageProductFragment"
         android:label="@string/title_admin_products"
-        tools:layout="@layout/fragment_manage_product" />
+        tools:layout="@layout/fragment_manage_product" >
+        <action
+            android:id="@+id/action_manageProduct_fragment_to_navigation_admin_products"
+            app:destination="@id/navigation_admin_products" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_admin_profile"

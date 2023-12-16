@@ -71,4 +71,19 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
 
         return Product(prodId, prodName, prodDescription, prodPrice.toDouble(), prodImage, prodAvailable)
     }
+
+    fun editProduct(product: Product): Boolean {
+        // writableDatabase for insert actions
+        val db: SQLiteDatabase = this.writableDatabase
+        val cv: ContentValues = ContentValues()
+
+        cv.put(Column_ProdName, product.prodName)
+        cv.put(Column_ProdDescription,product.prodDescription)
+        cv.put(Column_ProdPrice, product.prodPrice)
+
+        val result = db.update(TableName,cv,"$Column_ID = ${product.prodId}", null) == 1
+        db.close()
+        return result
+    }
+
 }

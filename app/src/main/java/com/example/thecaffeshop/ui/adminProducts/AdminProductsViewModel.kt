@@ -21,8 +21,14 @@ class AdminProductsViewModel(application: Application) : AndroidViewModel(applic
     private val _product = MutableLiveData<Product>()
     val product: LiveData<Product> = _product
 
-    fun selectProduct (product: Product) {
+    fun selectProduct(product: Product) {
         _product.value = product
-    }
 
+    }
+    fun updateProductsList() {
+        val updatedList = productDBHelper.getAllProducts()
+        _products.postValue(updatedList)
+    }
+    fun clearCart () {
+    }
 }

@@ -10,10 +10,39 @@
     android:orientation="vertical"
     tools:context=".ui.adminProducts.ManageProductFragment">
 
-
-    <TextView
+    <EditText
+        android:id="@+id/edit_product_title"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/manage_products" />
+        android:layout_marginBottom="12dp"
+        android:text="Product_title" />
+    <EditText
+        android:id="@+id/edit_product_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:text="Product_description"
+        />
+
+
+    <EditText
+        android:id="@+id/edit_product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:hint="Product_price"
+        />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/product_edit_product"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_product"
+        android:textSize="14sp" />
+
+
 
 </LinearLayout>
