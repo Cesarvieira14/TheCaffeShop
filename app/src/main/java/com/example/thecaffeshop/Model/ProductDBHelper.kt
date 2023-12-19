@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper
 
 private const val ver: Int = 1
 
+// SQL: CREATE TABLE Products (ProdId INTEGER PRIMARY KEY AUTOINCREMENT, ProdName TEXT, ProdDescription TEXT, ProdPrice REAL, ProdImage TEXT, ProdAvailable BOOLEAN)
 class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, ver) {
 
     /* Products Table */

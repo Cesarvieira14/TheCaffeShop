@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper
 
 private val ver: Int = 1
 
+// SQL: CREATE TABLE Admins ( AdminId INTEGER PRIMARY KEY AUTOINCREMENT, AdminFullName TEXT, AdminEmail TEXT, AdminPhoneNo TEXT, AdminUserName TEXT, AdminPassword TEXT, AdminIsActive BOOLEAN )
 class AdminDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, ver) {
 
     /* Customer Table */

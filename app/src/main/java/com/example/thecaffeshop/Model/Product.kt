@@ -17,7 +17,7 @@ data class Product(
                 "prodDescription='$prodDescription', " +
                 "prodPrice='$prodPrice', " +
                 "prodImage='$prodImage', " +
-                "prodAvailable='$prodAvailable', " +
+                "prodAvailable='$prodAvailable'" +
                 ")"
     }
 }

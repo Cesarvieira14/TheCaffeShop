@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper
 /* Database Config*/
 private const val ver: Int = 1
 
+// CREATE TABLE Customers ( Id INTEGER PRIMARY KEY AUTOINCREMENT, CusFullName TEXT, CusEmail TEXT, CusPhoneNo TEXT, CusUserName TEXT, CusPassword TEXT, CusIsActive BOOLEAN )
 class CustomerDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, ver) {
 
     /* Customer Table */
