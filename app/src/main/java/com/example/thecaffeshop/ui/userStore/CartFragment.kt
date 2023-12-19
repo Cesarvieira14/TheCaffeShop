@@ -1,6 +1,7 @@
 package com.example.thecaffeshop.ui.userStore
 
 import android.annotation.SuppressLint
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.navigation.findNavController
 import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentCartBinding
+import com.example.thecaffeshop.model.Order
+import com.example.thecaffeshop.model.OrdersDBHelper
 import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.ui.userHome.HomeActivity
 
@@ -28,6 +32,7 @@ class CartFragment : Fragment() {
         return binding.root;
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,19 +71,24 @@ class CartFragment : Fragment() {
             binding.cartTotalPrice.text = "Total: £${"%.2f".format(totalPrice)}"
 
             binding.cartSubmitOrderBtn.setOnClickListener {
-                handleNewOrder(productsList)
+                handleNewOrder()
             }
         }
     }
 
-    private fun handleNewOrder(productList: ArrayList<Product>) {
-        // TODO: submit new order to DB and more user to orders fragment
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun handleNewOrder() {
+        val hasOrderBeenMade = storeViewModel.makeAnOrder()
 
-        Toast.makeText(
-            this.context,
-            "Order made successfully!",
-            Toast.LENGTH_SHORT
-        ).show()
+        if (hasOrderBeenMade) {
+            storeViewModel.clearCart()
+
+            Toast.makeText(
+                this.context,
+                "Order made successfully!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun handleProductRemove(product: Product) {

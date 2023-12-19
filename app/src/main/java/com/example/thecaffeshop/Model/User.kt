@@ -11,14 +11,14 @@ package com.example.thecaffeshop.model
  */
 
 data class User(
-    val id: Int,
-    var fullName: String,
-    var email: String,
-    var phoneNo: String,
-    var userName: String,
-    var password: String,
-    var isActive: Boolean,
-    var isAdmin: Boolean
+    val id: Int = -1,
+    var fullName: String = "",
+    var email: String = "",
+    var phoneNo: String = "",
+    var userName: String = "",
+    var password: String = "",
+    var isActive: Boolean = false,
+    var isAdmin: Boolean = false
 ) {
     override fun toString(): String {
         return "Customer(" +

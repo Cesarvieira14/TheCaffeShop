@@ -45,7 +45,8 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
         TODO("Not yet implemented")
     }
 
-    fun createOrder(order: Order): Boolean {
+    @SuppressLint("Range")
+    fun createOrder(order: Order): Int {
         val db: SQLiteDatabase = this.writableDatabase
         val cv: ContentValues = ContentValues()
 
@@ -54,8 +55,20 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
         cv.put(Column_OrderStatus, order.orderStatus)
         cv.put(Column_CusId, order.user.id)
 
-        val success = db.insert(TableName, null, cv)
+        // Create new row
+        val id = db.insert(TableName, null, cv)
+
+        // Fetch created id
+        val sqlStatement = "SELECT * FROM $TableName WHERE rowid = ?"
+        val selectionArgs: Array<String> = arrayOf(id.toString())
+        val cursor: Cursor = db.rawQuery(sqlStatement, selectionArgs)
+
+        if (cursor != null && cursor.moveToFirst()) {
+            db.close()
+            return cursor.getInt(cursor.getColumnIndex(Column_ID))
+        }
+
         db.close()
-        return success != -1L
+        return 0
     }
 }

@@ -11,16 +11,16 @@ package com.example.thecaffeshop.model
  */
 
 data class Order(
-    val orderId: Int,
-    var orderDate: String,
-    var orderTime: String,
-    var orderStatus: String,
-    val paymentId: Int,
-    val paymentDate: String,
-    val paymentType: String,
-    val paymentAmount: Double,
-    val user: User,
-    val products: List<Product>,
+    var orderId: Int = -1,
+    var orderDate: String = "",
+    var orderTime: String = "",
+    var orderStatus: String = "",
+    val paymentId: Int = -1,
+    val paymentDate: String = "",
+    val paymentType: String = "",
+    var paymentAmount: Double = 0.0,
+    var user: User = User(),
+    val products: List<Product> = emptyList(),
 ) {
     override fun toString(): String {
         return "Customer(" +

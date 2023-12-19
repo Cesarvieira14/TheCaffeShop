@@ -85,7 +85,6 @@ class CustomerDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nu
 
         val sqlStatement = "SELECT * FROM $TableName WHERE $Column_ID = ?"
         val selectionArgs: Array<String> = arrayOf(userId.toString())
-
         val cursor: Cursor = db.rawQuery(sqlStatement, selectionArgs)
 
         val hasUser = cursor.moveToFirst()
