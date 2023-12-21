@@ -85,13 +85,13 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
             if (orderId > 0) {
                 var totalAmount: Double = 0.0
 
-                _products.value?.forEach {product ->
+                _cart.value?.forEach {product ->
                     orderDetailsDBHelper.createOrderDetails(newOrder.orderId, product.prodId)
                     totalAmount += product.prodPrice
                 }
 
                 // 3. Create new payment in DB
-                newOrder.paymentAmount = totalAmount
+                newOrder.payment.paymentAmount = totalAmount
                 paymentsDBHelper.createPayment(newOrder)
 
                 return true

@@ -15,4 +15,13 @@
         android:textAlignment="center"
         style="@style/TextAppearance.Material3.HeadlineLarge"
         android:text="@string/orders_page_title"/>
+
+    <ListView
+        android:id="@+id/orders_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="70dp" />
+
 </LinearLayout>

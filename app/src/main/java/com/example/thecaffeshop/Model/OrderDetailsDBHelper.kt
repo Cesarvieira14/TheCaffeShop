@@ -2,8 +2,10 @@ package com.example.thecaffeshop.model
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.thecaffeshop.model.ProductDBHelper.Companion.parseProduct
 
 /* Database Config*/
 private const val ver: Int = 1
@@ -21,8 +23,8 @@ class OrderDetailsDBHelper(context: Context) : SQLiteOpenHelper(context, Constan
 
         val sqlCreateStatement: String = "CREATE TABLE " + TableName + " ( " + Column_ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                Column_OrderId + " INTEGER, FOREIGN KEY(OrderId) REFERENCES Orders(OrderId), " +
-                Column_ProdId + " INTEGER, FOREIGN KEY(ProdId) REFERENCES Products(ProdId)) "
+                Column_OrderId + " INTEGER, FOREIGN KEY($Column_OrderId) REFERENCES Orders(OrderId), " +
+                Column_ProdId + " INTEGER, FOREIGN KEY($Column_ProdId) REFERENCES Products(ProdId)) "
 
         db?.execSQL(sqlCreateStatement)
     }
@@ -41,5 +43,29 @@ class OrderDetailsDBHelper(context: Context) : SQLiteOpenHelper(context, Constan
         val success = db.insert(TableName, null, cv)
         db.close()
         return success != -1L
+    }
+
+    fun getProductsByOrderId(orderId: Int): ArrayList<Product> {
+        val db: SQLiteDatabase = this.readableDatabase
+
+        val cursor: Cursor = db.rawQuery(
+            "SELECT * " +
+                "FROM OrderDetails " +
+                "LEFT JOIN Products " +
+                "ON OrderDetails.ProdId = Products.ProdId " +
+                "WHERE OrderDetails.OrderId = ?",
+            arrayOf(orderId.toString())
+        )
+
+        val productsForOrder: ArrayList<Product> = ArrayList();
+        try {
+            while (cursor.moveToNext()) {
+                productsForOrder.add(parseProduct(cursor))
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+        return productsForOrder
     }
 }

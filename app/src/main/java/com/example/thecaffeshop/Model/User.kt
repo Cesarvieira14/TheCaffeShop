@@ -21,7 +21,7 @@ data class User(
     var isAdmin: Boolean = false
 ) {
     override fun toString(): String {
-        return "Customer(" +
+        return "User(" +
                 "id='$id', " +
                 "fullName='$fullName', " +
                 "email='$email', " +

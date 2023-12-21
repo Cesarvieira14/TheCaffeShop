@@ -15,23 +15,17 @@ data class Order(
     var orderDate: String = "",
     var orderTime: String = "",
     var orderStatus: String = "",
-    val paymentId: Int = -1,
-    val paymentDate: String = "",
-    val paymentType: String = "",
-    var paymentAmount: Double = 0.0,
+    var payment: Payment = Payment(),
     var user: User = User(),
-    val products: List<Product> = emptyList(),
+    var products: List<Product> = emptyList(),
 ) {
     override fun toString(): String {
-        return "Customer(" +
+        return "Order(" +
                 "orderId='$orderId', " +
                 "orderDate='$orderDate', " +
                 "orderTime='$orderTime', " +
                 "orderStatus='$orderStatus', " +
-                "paymentId='$paymentId', " +
-                "paymentDate='$paymentDate', " +
-                "paymentType='$paymentType', " +
-                "paymentAmount='$paymentAmount', " +
+                "payment='$payment', " +
                 "user='$user', " +
                 "products='$products'" +
                 ")"

@@ -1,7 +1,9 @@
 package com.example.thecaffeshop.model
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
@@ -13,20 +15,19 @@ private const val ver: Int = 1
 class PaymentsDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_NAME, null, ver) {
     /* Customer Table */
     val TableName = "Payments"
-    val Column_ID = "PaymentId"
+    val Column_PaymentId = "PaymentId"
     val Column_PaymentDate = "PaymentDate"
     val Column_PaymentType = "PaymentType"
     val Column_PaymentAmount = "PaymentAmount"
     val Column_OrderId = "OrderId"
 
     override fun onCreate(db: SQLiteDatabase?) {
-
-        val sqlCreateStatement: String = "CREATE TABLE " + TableName + " ( " + Column_ID +
+        val sqlCreateStatement: String = "CREATE TABLE " + TableName + " ( " + Column_PaymentId +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 Column_PaymentDate + " TEXT, " +
                 Column_PaymentType + " TEXT, " +
                 Column_PaymentAmount + " REAL, " +
-                Column_OrderId + " INTEGER, FOREIGN KEY(OrderId) REFERENCES Orders(OrderId)) "
+                Column_OrderId + " INTEGER, FOREIGN KEY($Column_OrderId) REFERENCES Orders(OrderId)) "
 
         db?.execSQL(sqlCreateStatement)
     }
@@ -39,13 +40,37 @@ class PaymentsDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.D
         val db: SQLiteDatabase = this.writableDatabase
         val cv: ContentValues = ContentValues()
 
-        cv.put(Column_PaymentDate, order.paymentDate)
-        cv.put(Column_PaymentType, order.paymentType)
-        cv.put(Column_PaymentAmount, order.paymentAmount)
+        cv.put(Column_PaymentDate, order.payment.paymentDate)
+        cv.put(Column_PaymentType, order.payment.paymentType)
+        cv.put(Column_PaymentAmount, order.payment.paymentAmount)
         cv.put(Column_OrderId, order.orderId)
 
         val success = db.insert(TableName, null, cv)
         db.close()
         return success != -1L
+    }
+
+    @SuppressLint("Range")
+    fun getPaymentByOrderId(orderId: Int): Payment {
+        val db: SQLiteDatabase = this.readableDatabase
+
+        val cursor: Cursor = db.rawQuery(
+            "SELECT * FROM $TableName WHERE $Column_OrderId = ? ",
+            arrayOf(orderId.toString())
+        )
+
+        val payment = Payment();
+        try {
+            while (cursor.moveToNext()) {
+                payment.paymentId = cursor.getInt(cursor.getColumnIndex(Column_PaymentId))
+                payment.paymentDate = cursor.getString(cursor.getColumnIndex(Column_PaymentDate))
+                payment.paymentType = cursor.getString(cursor.getColumnIndex(Column_PaymentType))
+                payment.paymentAmount = cursor.getDouble(cursor.getColumnIndex(Column_PaymentAmount))
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+        return payment
     }
 }

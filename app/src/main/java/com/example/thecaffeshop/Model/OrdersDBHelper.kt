@@ -36,7 +36,7 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
                 Column_OrderDate + " TEXT, " +
                 Column_OrderTime + " TEXT, " +
                 Column_OrderStatus + " TEXT, " +
-                Column_CusId + " INTEGER, FOREIGN KEY(CusId) REFERENCES Customers(Id)) "
+                Column_CusId + " INTEGER, FOREIGN KEY($Column_CusId) REFERENCES Customers(Id)) "
 
         db?.execSQL(sqlCreateStatement)
     }
@@ -70,5 +70,35 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
 
         db.close()
         return 0
+    }
+
+    fun getOrdersByUserId(userId: Int): ArrayList<Order> {
+        val db: SQLiteDatabase = this.readableDatabase
+
+        val cursor: Cursor = db.rawQuery(
+            "SELECT * FROM $TableName WHERE $Column_CusId = ? ",
+            arrayOf(userId.toString())
+        )
+
+        val orders: ArrayList<Order> = ArrayList();
+        try {
+            while (cursor.moveToNext()) {
+                orders.add(parseOrder(cursor))
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+        return orders
+    }
+
+    @SuppressLint("Range")
+    fun parseOrder(cursor: Cursor): Order {
+        val orderId = cursor.getInt(cursor.getColumnIndex(Column_ID))
+        val orderDate = cursor.getString(cursor.getColumnIndex(Column_OrderDate))
+        val orderTime = cursor.getString(cursor.getColumnIndex(Column_OrderTime))
+        val orderStatus = cursor.getString(cursor.getColumnIndex(Column_OrderStatus))
+
+        return Order(orderId, orderDate, orderTime, orderStatus)
     }
 }

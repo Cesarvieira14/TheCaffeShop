@@ -12,20 +12,39 @@ private const val ver: Int = 1
 
 // SQL: CREATE TABLE Products (ProdId INTEGER PRIMARY KEY AUTOINCREMENT, ProdName TEXT, ProdDescription TEXT, ProdPrice REAL, ProdImage TEXT, ProdAvailable BOOLEAN)
 class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, ver) {
+    companion object {
+        /* Products Table */
+        val TableName = "Products"
+        val Column_ProdId = "ProdId"
+        val Column_ProdName = "ProdName"
+        val Column_ProdDescription = "ProdDescription"
+        val Column_ProdPrice = "ProdPrice"
+        val Column_ProdImage = "ProdImage"
+        val Column_ProdAvailable = "ProdAvailable"
 
-    /* Products Table */
-    val TableName = "Products"
-    val Column_ID = "ProdId"
-    val Column_ProdName = "ProdName"
-    val Column_ProdDescription = "ProdDescription"
-    val Column_ProdPrice = "ProdPrice"
-    val Column_ProdImage = "ProdImage"
-    val Column_ProdAvailable = "ProdAvailable"
+        @SuppressLint("Range")
+        fun parseProduct(cursor: Cursor): Product {
+            val prodId = cursor.getInt(cursor.getColumnIndex(Column_ProdId))
+            val prodName = cursor.getString(cursor.getColumnIndex(Column_ProdName))
+            val prodDescription = cursor.getString(cursor.getColumnIndex(Column_ProdDescription))
+            val prodPrice = cursor.getFloat(cursor.getColumnIndex(Column_ProdPrice))
+            val prodImage = cursor.getString(cursor.getColumnIndex(Column_ProdImage))
+            val prodAvailable = cursor.getInt(cursor.getColumnIndex(Column_ProdAvailable)) != 0
 
+            return Product(
+                prodId,
+                prodName,
+                prodDescription,
+                prodPrice.toDouble(),
+                prodImage,
+                prodAvailable
+            )
+        }
+    }
 
     override fun onCreate(db: SQLiteDatabase?) {
 
-        val sqlCreateStatement: String = "CREATE TABLE " + TableName + " ( " + Column_ID +
+        val sqlCreateStatement: String = "CREATE TABLE " + TableName + " ( " + Column_ProdId +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 Column_ProdName + " TEXT, " +
                 Column_ProdDescription + " TEXT, " +
@@ -56,21 +75,7 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
             cursor.close()
             db.close()
         }
-
-
         return products
-    }
-
-    @SuppressLint("Range")
-    fun parseProduct(cursor: Cursor): Product {
-        val prodId = cursor.getInt(cursor.getColumnIndex(Column_ID))
-        val prodName = cursor.getString(cursor.getColumnIndex(Column_ProdName))
-        val prodDescription = cursor.getString(cursor.getColumnIndex(Column_ProdDescription))
-        val prodPrice = cursor.getFloat(cursor.getColumnIndex(Column_ProdPrice))
-        val prodImage = cursor.getString(cursor.getColumnIndex(Column_ProdImage))
-        val prodAvailable = cursor.getInt(cursor.getColumnIndex(Column_ProdAvailable)) != 0
-
-        return Product(prodId, prodName, prodDescription, prodPrice.toDouble(), prodImage, prodAvailable)
     }
 
     fun editProduct(product: Product): Boolean {
@@ -79,10 +84,10 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
         val cv: ContentValues = ContentValues()
 
         cv.put(Column_ProdName, product.prodName)
-        cv.put(Column_ProdDescription,product.prodDescription)
+        cv.put(Column_ProdDescription, product.prodDescription)
         cv.put(Column_ProdPrice, product.prodPrice)
 
-        val result = db.update(TableName,cv,"$Column_ID = ${product.prodId}", null) == 1
+        val result = db.update(TableName, cv, "$Column_ProdId = ${product.prodId}", null) == 1
         db.close()
         return result
     }
