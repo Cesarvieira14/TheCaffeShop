@@ -34,7 +34,7 @@ class OrdersListAdapter(
         val amountText = rowView.findViewById(R.id.order_list_amount) as TextView
 
         idText.text = currentOrder.orderId.toString()
-        datetimeText.text = "${currentOrder.orderDate} ${currentOrder.orderTime}"
+        datetimeText.text = currentOrder.orderDate
         statusText.text = currentOrder.orderStatus
         val formattedPrice = String.format("%.2f", currentOrder.payment.paymentAmount)
         amountText.text = "£$formattedPrice"

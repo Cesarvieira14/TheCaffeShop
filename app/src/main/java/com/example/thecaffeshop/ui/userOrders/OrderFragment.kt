@@ -1,10 +1,6 @@
 package com.example.thecaffeshop.ui.userOrders
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +12,12 @@ import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentOrderBinding
 import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.ui.userHome.HomeActivity
+import com.example.thecaffeshop.ui.userStore.ProductsListAdapter
 import com.example.thecaffeshop.ui.userStore.StoreViewModel
-import java.util.concurrent.Executors
 
 class OrderFragment : Fragment() {
-    private lateinit var storeViewModel: OrdersViewModel
+    private lateinit var ordersViewModel: OrdersViewModel
+    private lateinit var storeViewModel: StoreViewModel
 
     private var _binding: FragmentOrderBinding? = null
     private val binding get() = _binding!!
@@ -36,56 +33,40 @@ class OrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        storeViewModel = ViewModelProvider(requireActivity()).get(OrdersViewModel::class.java)
+        ordersViewModel = ViewModelProvider(requireActivity()).get(OrdersViewModel::class.java)
+        storeViewModel = ViewModelProvider(requireActivity()).get(StoreViewModel::class.java)
 
         val actionBar = (activity as HomeActivity).supportActionBar
         actionBar?.show()
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        storeViewModel.order.observe(viewLifecycleOwner) { product ->
-            actionBar?.title = "Store - ${product.prodName}"
+        ordersViewModel.order.observe(viewLifecycleOwner) { order ->
+            actionBar?.title = "Order - ${order.orderId}"
 
-            binding.productTitle.text = product.prodName
-            binding.productDescription.text = product.prodDescription
-            binding.productPrice.text = "£${"%.2f".format(product.prodPrice)}"
+            binding.orderOrderId.text = "Order ID: ${order.orderId}"
+            binding.orderDatetime.text = "${order.orderDate} - ${order.orderTime}"
+            binding.orderStatus.text = order.orderStatus
+            binding.orderPaymentAmount.text = "Total amount: £${"%.2f".format(order.payment.paymentAmount)}"
 
-            // Set product image
-            val executor = Executors.newSingleThreadExecutor()
-            val handler = Handler(Looper.getMainLooper())
-            var image: Bitmap? = null
-            executor.execute {
-                try {
-                    val `in` = java.net.URL(product.prodImage).openStream()
-                    image = BitmapFactory.decodeStream(`in`)
-                    handler.post {
-                        binding.productImage.setImageBitmap(image)
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+            val adapter = ProductsListAdapter(
+                requireActivity().applicationContext,
+                layoutInflater,
+                order.products
+            );
+
+            binding.orderProducts.setOnItemClickListener() { adapterView, _, position, _ ->
+                val productAtPosition = adapterView.getItemAtPosition(position) as Product
+                storeViewModel.selectProduct(productAtPosition)
+                view?.findNavController()
+                    ?.navigate(R.id.action_orderFragment_to_productFragment)
             }
 
-            binding.productAddCart.setOnClickListener {
-                handleAddToCartBtnClick(product)
+            binding.orderProducts.adapter = adapter
+
+            binding.orderPaymentBtn.setOnClickListener {
+                Toast.makeText(requireContext(), "Payment successful!", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    fun handleAddToCartBtnClick(product: Product) {
-        if (!product.prodAvailable) {
-            Toast.makeText(requireContext(), "Product is not available", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        storeViewModel.addToCart(product)
-
-        Toast.makeText(
-            requireContext(),
-            "${product.prodName} added to your cart!",
-            Toast.LENGTH_SHORT
-        ).show()
-
-        view?.findNavController()?.navigate(R.id.navigation_user_store)
     }
 
     override fun onDestroyView() {

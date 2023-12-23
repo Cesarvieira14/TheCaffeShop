@@ -11,7 +11,6 @@ import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentAdminProductsBinding
 import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.ui.userStore.ProductsListAdapter
-import com.example.thecaffeshop.ui.userStore.StoreViewModel
 
 class AdminProductsFragment : Fragment() {
 

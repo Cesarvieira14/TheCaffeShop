@@ -13,13 +13,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.thecaffeshop.R
 import com.example.thecaffeshop.model.Product
-import java.util.ArrayList
 import java.util.concurrent.Executors
 
 class ProductsListAdapter(
     private val context: Context,
     private val layoutInflater: LayoutInflater,
-    private val productsList: ArrayList<Product>,
+    private val productsList: List<Product>,
 ) : ArrayAdapter<Product>(context, R.layout.products_list_item, productsList) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
