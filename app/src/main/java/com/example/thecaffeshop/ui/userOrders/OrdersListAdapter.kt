@@ -1,26 +1,18 @@
 package com.example.thecaffeshop.ui.userOrders
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.TextView
 import com.example.thecaffeshop.R
 import com.example.thecaffeshop.model.Order
-import com.example.thecaffeshop.model.Product
-import java.util.ArrayList
-import java.util.concurrent.Executors
 
 class OrdersListAdapter(
     private val context: Context,
     private val layoutInflater: LayoutInflater,
-    private val ordersList: ArrayList<Order>,
+    private val ordersList: List<Order>,
 ) : ArrayAdapter<Order>(context, R.layout.orders_list_item, ordersList) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {

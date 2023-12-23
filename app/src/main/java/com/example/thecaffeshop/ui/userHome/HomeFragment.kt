@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentHomeBinding
+import com.example.thecaffeshop.model.Order
+import com.example.thecaffeshop.ui.userOrders.OrdersListAdapter
+import com.example.thecaffeshop.ui.userOrders.OrdersViewModel
 import com.example.thecaffeshop.utils.Session
 import com.example.thecaffeshop.utils.Session.username
 
 class HomeFragment : Fragment() {
-
+    private lateinit var ordersViewModel: OrdersViewModel
     private var _binding: FragmentHomeBinding? = null
-
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -21,8 +25,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        ordersViewModel = ViewModelProvider(requireActivity()).get(OrdersViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -30,6 +33,31 @@ class HomeFragment : Fragment() {
         // Set home username to display
         val username = Session.userPreference(this.requireActivity().applicationContext).username
         binding.homeUsername.text = username
+
+        binding.homeBrowseMenuBtn.setOnClickListener {
+            view?.findNavController()
+                ?.navigate(R.id.navigation_user_store)
+        }
+
+        ordersViewModel.orders.observe(viewLifecycleOwner) { ordersList ->
+            val filteredOrdersList =
+                ordersList.filter { order -> order.orderStatus.lowercase() == "pending" || order.orderStatus.toLowerCase() == "processing" }
+
+            val adapter = OrdersListAdapter(
+                requireActivity().applicationContext,
+                layoutInflater,
+                filteredOrdersList
+            );
+
+            binding.homeOrdersListView.setOnItemClickListener() { adapterView, _, position, _ ->
+                val orderAtPosition = adapterView.getItemAtPosition(position) as Order
+                ordersViewModel.selectOrder(orderAtPosition)
+                view?.findNavController()
+                    ?.navigate(R.id.action_navigation_user_home_to_orderFragment)
+            }
+
+            binding.homeOrdersListView.adapter = adapter
+        }
 
         return root
     }

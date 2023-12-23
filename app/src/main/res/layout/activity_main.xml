@@ -18,6 +18,15 @@
         android:fontFamily="@font/lato"
         android:text="--Welcome--" />
 
+    <TextView
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingHorizontal="50dp"
+        android:textAlignment="center"
+        android:text="@string/landing_page_description" />
+
     <ImageView
         android:layout_width="146dp"
         android:layout_height="143dp"
