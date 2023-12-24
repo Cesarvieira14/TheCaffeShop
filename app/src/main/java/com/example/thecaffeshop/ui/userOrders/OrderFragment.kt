@@ -89,7 +89,7 @@ class OrderFragment : Fragment() {
                 requireActivity().applicationContext,
                 layoutInflater,
                 order.products
-            );
+            )
 
             binding.orderProducts.setOnItemClickListener() { adapterView, _, position, _ ->
                 val productAtPosition = adapterView.getItemAtPosition(position) as Product

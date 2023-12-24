@@ -33,7 +33,6 @@ class OrdersListAdapter(
         val formattedPrice = String.format("%.2f", currentOrder.payment.paymentAmount)
         amountText.text = "£$formattedPrice"
 
-
         return rowView
     }
 }
