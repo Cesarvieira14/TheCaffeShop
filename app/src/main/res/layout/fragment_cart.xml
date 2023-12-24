@@ -1,42 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".ui.userStore.CartFragment">
+    android:fillViewport="true">
 
-    <TextView
-        style="@style/TextAppearance.Material3.HeadlineLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/cart_title" />
-
-    <ListView
-        android:id="@+id/cart_list_view"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.9"
-        android:padding="12dp" />
+        android:background="@color/bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".ui.userStore.CartFragment">
 
-    <TextView
-        style="@style/TextAppearance.Material3.BodyLarge"
-        android:id="@+id/cart_total_price"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:padding="10dp"
-        android:text="Total: X" />
+        <TextView
+            style="@style/TextAppearance.Material3.HeadlineLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/cart_title" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/cart_submit_order_btn"
-        style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/submit_order"
-        android:layout_marginBottom="70dp"
-        android:textSize="14sp" />
+        <ListView
+            android:id="@+id/cart_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:padding="12dp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/cart_total_price"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:text="Total: X" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cart_submit_order_btn"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="70dp"
+            android:text="@string/submit_order"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</ScrollView>
