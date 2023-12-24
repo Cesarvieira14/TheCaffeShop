@@ -36,11 +36,15 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
     val products: LiveData<ArrayList<Product>> = _products
 
     init {
-        _products.value = productDBHelper.getAllProducts()
+        fetchAllProducts()
     }
 
     private val _product = MutableLiveData<Product>()
     val product: LiveData<Product> = _product
+
+    fun fetchAllProducts() {
+        _products.value = productDBHelper.getAllProducts()
+    }
 
     fun selectProduct (product: Product) {
         _product.value = product

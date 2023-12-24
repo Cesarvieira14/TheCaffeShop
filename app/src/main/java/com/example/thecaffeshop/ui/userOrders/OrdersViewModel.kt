@@ -25,8 +25,8 @@ class OrdersViewModel(application: Application) : AndroidViewModel(application) 
     private val orderDetailsDBHelper: OrderDetailsDBHelper =
         OrderDetailsDBHelper(application.applicationContext)
 
-    private val _orders = MutableLiveData<ArrayList<Order>>()
-    val orders: LiveData<ArrayList<Order>> = _orders
+    private val _orders = MutableLiveData<List<Order>>()
+    val orders: LiveData<List<Order>> = _orders
 
     private val _order = MutableLiveData<Order>()
     val order: LiveData<Order> = _order
@@ -52,7 +52,9 @@ class OrdersViewModel(application: Application) : AndroidViewModel(application) 
             ordersList.add(order)
         }
 
-        _orders.value = ordersList
+        val sortedOrders = ordersList.sortedWith(compareBy { it.orderStatus })
+
+        _orders.value = sortedOrders
     }
 
     fun selectOrder(order: Order) {

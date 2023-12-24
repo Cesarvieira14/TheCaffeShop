@@ -61,6 +61,8 @@ class OrderFragment : Fragment() {
         ordersViewModel = ViewModelProvider(requireActivity()).get(OrdersViewModel::class.java)
         storeViewModel = ViewModelProvider(requireActivity()).get(StoreViewModel::class.java)
 
+        ordersViewModel.fetchOrdersList()
+
         val actionBar = (activity as HomeActivity).supportActionBar
         actionBar?.show()
         actionBar?.setDisplayHomeAsUpEnabled(true)

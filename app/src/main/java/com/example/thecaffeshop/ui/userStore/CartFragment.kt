@@ -13,13 +13,13 @@ import androidx.annotation.RequiresApi
 import androidx.navigation.findNavController
 import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentCartBinding
-import com.example.thecaffeshop.model.Order
-import com.example.thecaffeshop.model.OrdersDBHelper
 import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.ui.userHome.HomeActivity
+import com.example.thecaffeshop.ui.userOrders.OrdersViewModel
 
 class CartFragment : Fragment() {
     private lateinit var storeViewModel: StoreViewModel
+    private lateinit var ordersViewModel: OrdersViewModel
 
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
@@ -38,6 +38,7 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         storeViewModel = ViewModelProvider(requireActivity()).get(StoreViewModel::class.java)
+        ordersViewModel = ViewModelProvider(requireActivity()).get(OrdersViewModel::class.java)
 
         val actionBar = (activity as HomeActivity).supportActionBar
         actionBar?.show()
@@ -55,7 +56,6 @@ class CartFragment : Fragment() {
                 handleProductRemove(it)
             }
 
-            // TODO: check if this is working
             binding.cartListView.setOnItemClickListener() { adapterView, _, position, id ->
                 val productAtPosition = adapterView.getItemAtPosition(position) as Product
                 storeViewModel.selectProduct(productAtPosition)
@@ -64,7 +64,7 @@ class CartFragment : Fragment() {
             binding.cartListView.adapter = adapter
 
             // Update total text view
-            var totalPrice: Double = 0.0
+            var totalPrice = 0.0
             productsList.forEach {
                 totalPrice += it.prodPrice
             }
@@ -88,6 +88,10 @@ class CartFragment : Fragment() {
                 "Order made successfully!",
                 Toast.LENGTH_SHORT
             ).show()
+
+            ordersViewModel.fetchOrdersList()
+
+            view?.findNavController()?.navigate(R.id.navigation_user_orders)
         }
     }
 

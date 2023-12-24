@@ -8,9 +8,8 @@
 
     <TextView
         android:id="@+id/order_list_id"
-        android:layout_width="wrap_content"
+        android:layout_width="26dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
         android:text="ID"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textSize="20dp"
