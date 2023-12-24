@@ -2,6 +2,7 @@ package com.example.thecaffeshop.ui.userStore
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -49,6 +50,13 @@ class ProductFragment : Fragment() {
             binding.productTitle.text = product.prodName
             binding.productDescription.text = product.prodDescription
             binding.productPrice.text = "£${"%.2f".format(product.prodPrice)}"
+            if (product.prodAvailable) {
+                binding.productAvailability.text = "Available"
+                binding.productAvailability.setTextColor(Color.parseColor("#4CAF50"))
+            } else {
+                binding.productAvailability.text = "Not available"
+                binding.productAvailability.setTextColor(Color.parseColor("#FF5722"))
+            }
 
             // Set product image
             val executor = Executors.newSingleThreadExecutor()

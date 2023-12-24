@@ -45,6 +45,14 @@
             android:layout_marginBottom="20dp"
             android:text="Product_price" />
 
+        <TextView
+            android:id="@+id/product_availability"
+            style="@style/TextAppearance.Material3.BodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Product_availability" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/product_add_cart"
             style="@style/Widget.Material3.Button.ElevatedButton"
