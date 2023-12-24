@@ -13,7 +13,6 @@ package com.example.thecaffeshop.model
 enum class OrderStatus {
     Pending, Processing, Done, Cancelled
 }
-
 data class Order(
     var orderId: Int = -1,
     var orderDate: String = "",

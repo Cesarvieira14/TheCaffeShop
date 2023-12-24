@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentHomeBinding
 import com.example.thecaffeshop.model.Order
+import com.example.thecaffeshop.model.OrderStatus
 import com.example.thecaffeshop.ui.userOrders.OrdersListAdapter
 import com.example.thecaffeshop.ui.userOrders.OrdersViewModel
 import com.example.thecaffeshop.utils.Session
@@ -42,9 +43,7 @@ class HomeFragment : Fragment() {
         ordersViewModel.orders.observe(viewLifecycleOwner) { ordersList ->
             val filteredOrdersList =
                 ordersList.filter { order ->
-                    order.orderStatus.toString()
-                        .lowercase() == "pending" || order.orderStatus.toString()
-                        .lowercase() == "processing"
+                    order.orderStatus == OrderStatus.Pending || order.orderStatus == OrderStatus.Processing
                 }
 
             val adapter = OrdersListAdapter(

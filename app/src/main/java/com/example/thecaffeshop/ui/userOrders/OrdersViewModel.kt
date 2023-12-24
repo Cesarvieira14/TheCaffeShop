@@ -1,6 +1,7 @@
 package com.example.thecaffeshop.ui.userOrders
 
 import android.app.Application
+import android.graphics.Color
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
@@ -27,6 +28,9 @@ class OrdersViewModel(application: Application) : AndroidViewModel(application) 
 
     private val _orders = MutableLiveData<List<Order>>()
     val orders: LiveData<List<Order>> = _orders
+
+    private val _filteredOrders = MutableLiveData<List<Order>>()
+    val filteredOrders: LiveData<List<Order>> = _filteredOrders
 
     private val _order = MutableLiveData<Order>()
     val order: LiveData<Order> = _order
@@ -55,6 +59,25 @@ class OrdersViewModel(application: Application) : AndroidViewModel(application) 
         val sortedOrders = ordersList.sortedWith(compareBy { it.orderStatus })
 
         _orders.value = sortedOrders
+        _filteredOrders.value = sortedOrders
+    }
+
+    fun filterOrders(orderStatus: String) {
+        if (orderStatus.lowercase() == "all") {
+            _filteredOrders.value = orders.value
+        } else {
+            val enumOrderStatus = OrderStatus.values().find { it.name == orderStatus } as OrderStatus
+            when (enumOrderStatus) {
+                OrderStatus.Pending ->
+                    _filteredOrders.value = orders.value?.filter { order -> order.orderStatus == OrderStatus.Pending}
+                OrderStatus.Processing ->
+                    _filteredOrders.value = orders.value?.filter { order -> order.orderStatus == OrderStatus.Processing}
+                OrderStatus.Done ->
+                    _filteredOrders.value = orders.value?.filter { order -> order.orderStatus == OrderStatus.Done}
+                OrderStatus.Cancelled ->
+                    _filteredOrders.value = orders.value?.filter { order -> order.orderStatus == OrderStatus.Cancelled}
+            }
+        }
     }
 
     fun selectOrder(order: Order) {

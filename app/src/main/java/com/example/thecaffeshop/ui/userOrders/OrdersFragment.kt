@@ -6,10 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.navigation.findNavController
 import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentOrdersBinding
 import com.example.thecaffeshop.model.Order
+import com.example.thecaffeshop.model.OrderStatus
 
 class OrdersFragment : Fragment() {
 
@@ -32,20 +35,43 @@ class OrdersFragment : Fragment() {
         val orderViewModel =
             ViewModelProvider(requireActivity()).get(OrdersViewModel::class.java)
 
-        orderViewModel.orders.observe(viewLifecycleOwner) { ordersList ->
+        val orderFilterOptions: ArrayList<String> = arrayListOf("All")
+        OrderStatus.values().forEach { orderFilterOptions.add(it.toString()) }
+
+        val orderFilterAdapter = ArrayAdapter(
+            requireActivity().applicationContext,
+            R.layout.order_filter_item,
+            orderFilterOptions
+        )
+        binding.ordersFilterSpinner.adapter = orderFilterAdapter
+        binding.ordersFilterSpinner.setSelection(0)
+        binding.ordersFilterSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    orderViewModel.filterOrders(orderFilterOptions.get(position))
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+
+        orderViewModel.filteredOrders.observe(viewLifecycleOwner) { ordersList ->
             val adapter = OrdersListAdapter(
                 requireActivity().applicationContext,
                 layoutInflater,
                 ordersList
             );
 
-            binding.ordersListView.setOnItemClickListener() { adapterView, _, position, _ ->
+            binding.ordersListView.setOnItemClickListener { adapterView, _, position, _ ->
                 val orderAtPosition = adapterView.getItemAtPosition(position) as Order
                 orderViewModel.selectOrder(orderAtPosition)
                 view?.findNavController()
                     ?.navigate(R.id.action_navigation_user_orders_to_orderFragment)
             }
-
             binding.ordersListView.adapter = adapter
         }
     }
