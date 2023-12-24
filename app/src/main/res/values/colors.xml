@@ -6,4 +6,5 @@
     <color name="success">#4CAF50</color>
     <color name="info">#2196F3</color>
     <color name="hold">#7C7C7C</color>
+    <color name="error">#FF5722</color>
 </resources>

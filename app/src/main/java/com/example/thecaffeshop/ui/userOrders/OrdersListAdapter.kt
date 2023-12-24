@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.thecaffeshop.R
 import com.example.thecaffeshop.model.Order
+import com.google.android.material.chip.Chip
 
 class OrdersListAdapter(
     private val context: Context,
@@ -22,7 +23,7 @@ class OrdersListAdapter(
 
         val idText = rowView.findViewById(R.id.order_list_id) as TextView
         val datetimeText = rowView.findViewById(R.id.order_list_datetime) as TextView
-        val statusText = rowView.findViewById(R.id.order_list_status) as TextView
+        val statusText = rowView.findViewById(R.id.order_list_status) as Chip
         val amountText = rowView.findViewById(R.id.order_list_amount) as TextView
 
         idText.text = currentOrder.orderId.toString()

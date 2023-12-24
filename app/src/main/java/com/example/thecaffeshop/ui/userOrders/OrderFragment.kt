@@ -21,6 +21,7 @@ import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.ui.userHome.HomeActivity
 import com.example.thecaffeshop.ui.userStore.ProductsListAdapter
 import com.example.thecaffeshop.ui.userStore.StoreViewModel
+import com.google.android.material.chip.Chip
 
 class OrderFragment : Fragment() {
     private lateinit var ordersViewModel: OrdersViewModel
@@ -30,18 +31,26 @@ class OrderFragment : Fragment() {
     private val binding get() = _binding!!
 
     companion object {
-        fun formatOrderStatus(statusText: TextView) {
-            val enumOrderStatus = OrderStatus.values().find { it.name == statusText.text.toString() } as OrderStatus
+        fun formatOrderStatus(statusText: Chip) {
+            val enumOrderStatus =
+                OrderStatus.values().find { it.name == statusText.text.toString() } as OrderStatus
 
             when (enumOrderStatus) {
-                OrderStatus.Pending ->
-                    statusText.setTextColor(Color.parseColor("#7C7C7C"))
-                OrderStatus.Processing ->
-                    statusText.setTextColor(Color.parseColor("#2196F3"))
-                OrderStatus.Done ->
-                    statusText.setTextColor(Color.parseColor("#4CAF50"))
-                OrderStatus.Cancelled ->
-                    statusText.setTextColor(Color.parseColor("#FF5722"))
+                OrderStatus.Pending -> {
+                    statusText.setChipBackgroundColorResource(R.color.hold)
+                }
+
+                OrderStatus.Processing -> {
+                    statusText.setChipBackgroundColorResource(R.color.info)
+                }
+
+                OrderStatus.Done -> {
+                    statusText.setChipBackgroundColorResource(R.color.success)
+                }
+
+                OrderStatus.Cancelled -> {
+                    statusText.setChipBackgroundColorResource(R.color.error)
+                }
             }
         }
     }
@@ -101,18 +110,28 @@ class OrderFragment : Fragment() {
                 binding.orderPaymentBtn.setOnClickListener {
                     val checkedTypeId = binding.orderPaymentType.checkedRadioButtonId
                     if (checkedTypeId == -1) {
-                        Toast.makeText(requireContext(), "Please select a payment method!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Please select a payment method!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         return@setOnClickListener
                     }
 
                     val checkedPaymentType = getView()?.findViewById<RadioButton>(checkedTypeId)
 
-                    val hasPaymentBeenSuccessful = ordersViewModel.makePayment(checkedPaymentType?.text.toString())
+                    val hasPaymentBeenSuccessful =
+                        ordersViewModel.makePayment(checkedPaymentType?.text.toString())
 
                     if (hasPaymentBeenSuccessful) {
-                        Toast.makeText(requireContext(), "Payment successful!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Payment successful!", Toast.LENGTH_SHORT)
+                            .show()
                     } else {
-                        Toast.makeText(requireContext(), "Something went wrong!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Something went wrong!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
@@ -120,10 +139,15 @@ class OrderFragment : Fragment() {
                     val hasOrderBeenCancelled = ordersViewModel.cancelOrder()
 
                     if (hasOrderBeenCancelled) {
-                        Toast.makeText(requireContext(), "Order cancelled!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Order cancelled!", Toast.LENGTH_SHORT)
+                            .show()
                         view?.findNavController()?.navigate(R.id.navigation_user_orders)
                     } else {
-                        Toast.makeText(requireContext(), "Something went wrong!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Something went wrong!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             } else {

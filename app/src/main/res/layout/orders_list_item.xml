@@ -24,21 +24,18 @@
         android:text="datetime"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
-    <TextView
+    <com.google.android.material.chip.Chip
         android:id="@+id/order_list_status"
-        android:layout_width="fill_parent"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_weight="0.9"
-        android:text="status"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textStyle="bold" />
+        android:text="Status" />
 
     <TextView
         android:id="@+id/order_list_amount"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="20dp"
         android:text="amount"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 </LinearLayout>

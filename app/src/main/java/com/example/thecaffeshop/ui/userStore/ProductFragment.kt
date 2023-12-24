@@ -52,10 +52,10 @@ class ProductFragment : Fragment() {
             binding.productPrice.text = "£${"%.2f".format(product.prodPrice)}"
             if (product.prodAvailable) {
                 binding.productAvailability.text = "Available"
-                binding.productAvailability.setTextColor(Color.parseColor("#4CAF50"))
+                binding.productAvailability.setChipBackgroundColorResource(R.color.success)
             } else {
                 binding.productAvailability.text = "Not available"
-                binding.productAvailability.setTextColor(Color.parseColor("#FF5722"))
+                binding.productAvailability.setChipBackgroundColorResource(R.color.error)
             }
 
             // Set product image

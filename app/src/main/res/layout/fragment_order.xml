@@ -48,12 +48,11 @@
             android:layout_marginBottom="20dp"
             android:text="payment amount" />
 
-        <TextView
+        <com.google.android.material.chip.Chip
             android:id="@+id/order_status"
-            style="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:text="status" />
 
         <RadioGroup
