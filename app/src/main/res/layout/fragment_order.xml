@@ -1,98 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:paddingBottom="70dp"
-    tools:context=".ui.userStore.ProductFragment">
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/order_orderId"
-        style="@style/TextAppearance.Material3.BodyLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="ID"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/order_datetime"
-        style="@style/TextAppearance.Material3.BodyMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="date time" />
-
-    <ListView
-        android:id="@+id/order_products"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="235dp"
-        android:layout_marginBottom="12dp"
-        android:padding="12dp" />
+        android:layout_height="match_parent"
+        android:background="@color/bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="70dp"
+        tools:context=".ui.userStore.ProductFragment">
 
-    <TextView
-        android:id="@+id/order_payment_amount"
-        style="@style/TextAppearance.Material3.BodyLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="payment amount" />
-
-    <TextView
-        android:id="@+id/order_status"
-        style="@style/TextAppearance.Material3.BodyLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="status" />
-
-    <RadioGroup
-        android:id="@+id/order_payment_type"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <RadioButton
-            android:id="@+id/order_payment_debit"
+        <TextView
+            android:id="@+id/order_orderId"
+            style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Debit"
-            />
-        <RadioButton
-            android:id="@+id/order_payment_credit"
+            android:layout_marginBottom="12dp"
+            android:text="ID"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/order_datetime"
+            style="@style/TextAppearance.Material3.BodyMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Credit"
-            />
-        <RadioButton
-            android:id="@+id/order_payment_paypal"
+            android:layout_marginBottom="20dp"
+            android:text="date time" />
+
+        <ListView
+            android:id="@+id/order_products"
+            android:layout_width="match_parent"
+            android:layout_height="235dp"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp" />
+
+        <TextView
+            android:id="@+id/order_payment_amount"
+            style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Paypal"
-            />
-    </RadioGroup>
+            android:layout_marginBottom="20dp"
+            android:text="payment amount" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/order_payment_btn"
-        style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/order_payment_btn"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/order_status"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="status" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/order_cancel_btn"
-        style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/order_cancel_btn"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:backgroundTint="@android:color/holo_red_light" />
+        <RadioGroup
+            android:id="@+id/order_payment_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp">
 
-</LinearLayout>
+            <RadioButton
+                android:id="@+id/order_payment_debit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Debit" />
+
+            <RadioButton
+                android:id="@+id/order_payment_credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Credit" />
+
+            <RadioButton
+                android:id="@+id/order_payment_paypal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Paypal" />
+        </RadioGroup>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/order_payment_btn"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/order_payment_btn"
+            android:textSize="14sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/order_cancel_btn"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_cancel_btn"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:backgroundTint="@android:color/holo_red_light" />
+
+    </LinearLayout>
+</ScrollView>

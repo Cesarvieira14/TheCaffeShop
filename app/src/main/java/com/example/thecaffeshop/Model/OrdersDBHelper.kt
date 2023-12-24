@@ -48,7 +48,7 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
     @SuppressLint("Range")
     fun createOrder(order: Order): Int {
         val db: SQLiteDatabase = this.writableDatabase
-        val cv: ContentValues = ContentValues()
+        val cv = ContentValues()
 
         cv.put(Column_OrderDate, order.orderDate)
         cv.put(Column_OrderTime, order.orderTime)
@@ -59,9 +59,8 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
         val id = db.insert(TableName, null, cv)
 
         // Fetch created id
-        val sqlStatement = "SELECT * FROM $TableName WHERE rowid = ?"
-        val selectionArgs: Array<String> = arrayOf(id.toString())
-        val cursor: Cursor = db.rawQuery(sqlStatement, selectionArgs)
+        val cursor: Cursor =
+            db.rawQuery("SELECT * FROM $TableName WHERE rowid = ?", arrayOf(id.toString()))
 
         if (cursor != null && cursor.moveToFirst()) {
             db.close()

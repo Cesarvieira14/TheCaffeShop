@@ -52,7 +52,6 @@ class OrdersViewModel(application: Application) : AndroidViewModel(application) 
             if (user != null) {
                 order.user = user
             }
-
             ordersList.add(order)
         }
 
