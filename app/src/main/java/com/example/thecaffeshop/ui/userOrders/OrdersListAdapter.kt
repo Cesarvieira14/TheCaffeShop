@@ -27,9 +27,11 @@ class OrdersListAdapter(
 
         idText.text = currentOrder.orderId.toString()
         datetimeText.text = currentOrder.orderDate
-        statusText.text = currentOrder.orderStatus
+        statusText.text = currentOrder.orderStatus.toString()
+        OrderFragment.formatOrderStatus(statusText)
         val formattedPrice = String.format("%.2f", currentOrder.payment.paymentAmount)
         amountText.text = "£$formattedPrice"
+
 
         return rowView
     }

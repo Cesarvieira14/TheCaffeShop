@@ -1,12 +1,15 @@
 package com.example.thecaffeshop.ui.userOrders
 
 import android.app.Application
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.thecaffeshop.model.CustomerDBHelper
 import com.example.thecaffeshop.model.Order
 import com.example.thecaffeshop.model.OrderDetailsDBHelper
+import com.example.thecaffeshop.model.OrderStatus
 import com.example.thecaffeshop.model.OrdersDBHelper
 import com.example.thecaffeshop.model.PaymentsDBHelper
 import com.example.thecaffeshop.utils.Session
@@ -29,6 +32,10 @@ class OrdersViewModel(application: Application) : AndroidViewModel(application) 
     val order: LiveData<Order> = _order
 
     init {
+        fetchOrdersList()
+    }
+
+    fun fetchOrdersList() {
         var ordersList = arrayListOf<Order>()
 
         val user = customerDBHelper.getUserByUserId(userId)
@@ -50,5 +57,35 @@ class OrdersViewModel(application: Application) : AndroidViewModel(application) 
 
     fun selectOrder(order: Order) {
         _order.value = order
+    }
+
+    fun cancelOrder(): Boolean {
+        order.value?.orderId?.let {
+            val cancelOrder = ordersDBHelper.updateOrderStatus(it, OrderStatus.Cancelled)
+            // If yes, update orders list to reflect the update
+            if (cancelOrder) {
+                fetchOrdersList()
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun makePayment(type: String): Boolean {
+        order.value?.let {
+            val paymentUpdate = paymentsDBHelper.makePayment(it.payment.paymentId, type)
+            if (paymentUpdate) {
+                val orderStatusUpdate = ordersDBHelper.updateOrderStatus(it.orderId, OrderStatus.Processing)
+                // If yes, update orders list to reflect the update
+                if (orderStatusUpdate) {
+                    fetchOrdersList()
+                    // Update current view order
+                    _orders.value?.find { order -> order.orderId == it.orderId }?.let { it1 -> selectOrder(it1) }
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

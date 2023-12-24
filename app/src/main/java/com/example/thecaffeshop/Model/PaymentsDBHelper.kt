@@ -6,6 +6,10 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.os.Build
+import androidx.annotation.RequiresApi
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 /* Database Config*/
 private const val ver: Int = 1
@@ -38,7 +42,7 @@ class PaymentsDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.D
 
     fun createPayment(order: Order): Boolean {
         val db: SQLiteDatabase = this.writableDatabase
-        val cv: ContentValues = ContentValues()
+        val cv = ContentValues()
 
         cv.put(Column_PaymentDate, order.payment.paymentDate)
         cv.put(Column_PaymentType, order.payment.paymentType)
@@ -48,6 +52,24 @@ class PaymentsDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.D
         val success = db.insert(TableName, null, cv)
         db.close()
         return success != -1L
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun makePayment(paymentId: Int, type: String): Boolean {
+        val db: SQLiteDatabase = this.readableDatabase
+        val cv = ContentValues()
+
+        val dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
+        cv.put(Column_PaymentDate, LocalDateTime.now().format(dateFormatter))
+        cv.put(Column_PaymentType, type)
+
+        db.use { db ->
+            val rowsAffected =
+                db.update(TableName, cv, "$Column_PaymentId = ?", arrayOf(paymentId.toString()))
+
+            return rowsAffected > 0
+        }
+        return false
     }
 
     @SuppressLint("Range")

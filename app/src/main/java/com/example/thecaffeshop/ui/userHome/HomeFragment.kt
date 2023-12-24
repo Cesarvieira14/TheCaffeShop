@@ -41,7 +41,11 @@ class HomeFragment : Fragment() {
 
         ordersViewModel.orders.observe(viewLifecycleOwner) { ordersList ->
             val filteredOrdersList =
-                ordersList.filter { order -> order.orderStatus.lowercase() == "pending" || order.orderStatus.toLowerCase() == "processing" }
+                ordersList.filter { order ->
+                    order.orderStatus.toString()
+                        .lowercase() == "pending" || order.orderStatus.toString()
+                        .lowercase() == "processing"
+                }
 
             val adapter = OrdersListAdapter(
                 requireActivity().applicationContext,

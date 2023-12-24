@@ -23,7 +23,7 @@ private const val ver: Int = 1
 class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_NAME, null, ver) {
     /* Customer Table */
     val TableName = "Orders"
-    val Column_ID = "OrderId"
+    val Column_OrderId = "OrderId"
     val Column_OrderDate = "OrderDate"
     val Column_OrderTime = "OrderTime"
     val Column_OrderStatus = "OrderStatus"
@@ -31,7 +31,7 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
 
     override fun onCreate(db: SQLiteDatabase?) {
 
-        val sqlCreateStatement: String = "CREATE TABLE " + TableName + " ( " + Column_ID +
+        val sqlCreateStatement: String = "CREATE TABLE " + TableName + " ( " + Column_OrderId +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 Column_OrderDate + " TEXT, " +
                 Column_OrderTime + " TEXT, " +
@@ -52,7 +52,7 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
 
         cv.put(Column_OrderDate, order.orderDate)
         cv.put(Column_OrderTime, order.orderTime)
-        cv.put(Column_OrderStatus, order.orderStatus)
+        cv.put(Column_OrderStatus, order.orderStatus.toString())
         cv.put(Column_CusId, order.user.id)
 
         // Create new row
@@ -65,7 +65,7 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
 
         if (cursor != null && cursor.moveToFirst()) {
             db.close()
-            return cursor.getInt(cursor.getColumnIndex(Column_ID))
+            return cursor.getInt(cursor.getColumnIndex(Column_OrderId))
         }
 
         db.close()
@@ -92,13 +92,29 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
         return orders
     }
 
+    fun updateOrderStatus(orderId: Int, orderStatus: OrderStatus): Boolean {
+        val db: SQLiteDatabase = this.readableDatabase
+        val cv = ContentValues()
+
+        cv.put(Column_OrderStatus, orderStatus.toString())
+
+        db.use { db ->
+            val rowsAffected =
+                db.update(TableName, cv, "$Column_OrderId = ?", arrayOf(orderId.toString()))
+
+            return rowsAffected > 0
+        }
+        return false
+    }
+
     @SuppressLint("Range")
     fun parseOrder(cursor: Cursor): Order {
-        val orderId = cursor.getInt(cursor.getColumnIndex(Column_ID))
+        val orderId = cursor.getInt(cursor.getColumnIndex(Column_OrderId))
         val orderDate = cursor.getString(cursor.getColumnIndex(Column_OrderDate))
         val orderTime = cursor.getString(cursor.getColumnIndex(Column_OrderTime))
         val orderStatus = cursor.getString(cursor.getColumnIndex(Column_OrderStatus))
+        val enumOrderStatus = OrderStatus.values().find { it.name == orderStatus } as OrderStatus
 
-        return Order(orderId, orderDate, orderTime, orderStatus)
+        return Order(orderId, orderDate, orderTime, enumOrderStatus)
     }
 }

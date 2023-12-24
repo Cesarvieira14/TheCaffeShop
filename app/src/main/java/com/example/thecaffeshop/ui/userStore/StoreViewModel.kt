@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.thecaffeshop.model.CustomerDBHelper
 import com.example.thecaffeshop.model.Order
 import com.example.thecaffeshop.model.OrderDetailsDBHelper
+import com.example.thecaffeshop.model.OrderStatus
 import com.example.thecaffeshop.model.OrdersDBHelper
 import com.example.thecaffeshop.model.PaymentsDBHelper
 import com.example.thecaffeshop.model.Product
@@ -71,7 +72,7 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
         // Prepare initial order information
         newOrder.orderDate = LocalDateTime.now().format(dateFormatter)
         newOrder.orderTime = LocalDateTime.now().format(timeFormatter)
-        newOrder.orderStatus = "Pending"
+        newOrder.orderStatus = OrderStatus.Pending
         if (currentUser != null) {
             newOrder.user = currentUser
         }

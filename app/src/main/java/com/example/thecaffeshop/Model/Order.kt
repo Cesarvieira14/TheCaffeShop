@@ -10,11 +10,15 @@ package com.example.thecaffeshop.model
  *
  */
 
+enum class OrderStatus {
+    Pending, Cancelled, Processing, Done
+}
+
 data class Order(
     var orderId: Int = -1,
     var orderDate: String = "",
     var orderTime: String = "",
-    var orderStatus: String = "",
+    var orderStatus: OrderStatus = OrderStatus.Pending,
     var payment: Payment = Payment(),
     var user: User = User(),
     var products: List<Product> = emptyList(),

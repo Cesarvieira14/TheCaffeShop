@@ -28,5 +28,6 @@
     <string name="submit_order">Make an order</string>
     <string name="manage_products">Manage Products</string>
     <string name="edit_product">Edit Product</string>
-    <string name="payment_btn">Make payment</string>
+    <string name="order_payment_btn">Make payment</string>
+    <string name="order_cancel_btn">Cancel order</string>
 </resources>
