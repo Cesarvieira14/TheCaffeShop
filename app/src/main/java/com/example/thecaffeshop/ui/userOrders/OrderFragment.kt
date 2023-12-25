@@ -1,14 +1,11 @@
 package com.example.thecaffeshop.ui.userOrders
 
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -22,6 +19,7 @@ import com.example.thecaffeshop.ui.userHome.HomeActivity
 import com.example.thecaffeshop.ui.userStore.ProductsListAdapter
 import com.example.thecaffeshop.ui.userStore.StoreViewModel
 import com.google.android.material.chip.Chip
+import java.time.format.DateTimeFormatter
 
 class OrderFragment : Fragment() {
     private lateinit var ordersViewModel: OrdersViewModel
@@ -102,13 +100,15 @@ class OrderFragment : Fragment() {
             formatOrderStatus(binding.orderStatus)
 
             if (order.orderStatus == OrderStatus.Pending) {
+                binding.orderPaymentType.visibility = View.INVISIBLE
+                binding.orderPaymentDate.visibility = View.INVISIBLE
                 binding.orderPaymentType.visibility = View.VISIBLE
-                binding.orderPaymentType.clearCheck()
+                binding.orderPaymentTypeSelection.clearCheck()
                 binding.orderPaymentBtn.visibility = View.VISIBLE
                 binding.orderCancelBtn.visibility = View.VISIBLE
 
                 binding.orderPaymentBtn.setOnClickListener {
-                    val checkedTypeId = binding.orderPaymentType.checkedRadioButtonId
+                    val checkedTypeId = binding.orderPaymentTypeSelection.checkedRadioButtonId
                     if (checkedTypeId == -1) {
                         Toast.makeText(
                             requireContext(),
@@ -151,9 +151,14 @@ class OrderFragment : Fragment() {
                     }
                 }
             } else {
-                binding.orderPaymentType.visibility = View.INVISIBLE
+                binding.orderPaymentTypeSelection.visibility = View.INVISIBLE
                 binding.orderPaymentBtn.visibility = View.INVISIBLE
                 binding.orderCancelBtn.visibility = View.INVISIBLE
+                binding.orderPaymentType.visibility = View.VISIBLE
+                binding.orderPaymentDate.visibility = View.VISIBLE
+
+                binding.orderPaymentType.text = "Type: ${order.payment.paymentType}"
+                binding.orderPaymentDate.text = "Payment date: ${order.payment.paymentDate}"
             }
         }
     }
