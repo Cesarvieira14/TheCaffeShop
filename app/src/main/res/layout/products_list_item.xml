@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants"
     android:padding="12dp">
 
     <ImageView
