@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
 
         binding.homeBrowseMenuBtn.setOnClickListener {
             view?.findNavController()
-                ?.navigate(R.id.navigation_user_store)
+                ?.navigate(R.id.action_navigation_user_home_to_navigation_user_store)
         }
 
         ordersViewModel.orders.observe(viewLifecycleOwner) { ordersList ->

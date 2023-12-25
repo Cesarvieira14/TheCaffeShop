@@ -15,6 +15,11 @@
             app:destination="@id/orderFragment"
             app:popUpTo="@id/user_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_navigation_user_home_to_navigation_user_store"
+            app:destination="@id/navigation_user_store"
+            app:popUpTo="@id/navigation_user_home"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
