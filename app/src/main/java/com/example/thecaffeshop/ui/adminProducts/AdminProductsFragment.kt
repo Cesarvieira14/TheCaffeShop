@@ -50,7 +50,17 @@ class AdminProductsFragment : Fragment() {
                     ?.navigate(R.id.action_navigation_admin_products_to_manage_products)
             }
 
+
+
+
             binding.adminProductsListView.adapter = adapter
+        }
+
+        binding.AddProductBtn.setOnClickListener {
+
+            // Navigate to add Product when the button is clicked
+            view.findNavController()
+                .navigate(R.id.action_navigation_admin_products_to_addProductsFragment)
         }
 
     }

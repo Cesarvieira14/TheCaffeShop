@@ -78,6 +78,22 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
         return products
     }
 
+    fun addProduct(product: Product): Boolean {
+        // writableDatabase for insert actions
+        val db: SQLiteDatabase = this.writableDatabase
+        val cv: ContentValues = ContentValues()
+
+        cv.put(Column_ProdName, product.prodName)
+        cv.put(Column_ProdDescription, product.prodDescription)
+        cv.put(Column_ProdImage, product.prodImage)
+        cv.put(Column_ProdPrice, product.prodPrice)
+        cv.put(Column_ProdAvailable, product.prodAvailable)
+
+        val success = db.insert(TableName, null, cv) != -1L
+        db.close()
+        return success
+    }
+
     fun editProduct(product: Product): Boolean {
         // writableDatabase for insert actions
         val db: SQLiteDatabase = this.writableDatabase
@@ -85,11 +101,14 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
 
         cv.put(Column_ProdName, product.prodName)
         cv.put(Column_ProdDescription, product.prodDescription)
+        cv.put(Column_ProdImage, product.prodImage)
         cv.put(Column_ProdPrice, product.prodPrice)
+        cv.put(Column_ProdAvailable, product.prodAvailable)
 
-        val result = db.update(TableName, cv, "$Column_ProdId = ${product.prodId}", null) == 1
+
+        val success = db.update(TableName, cv, "$Column_ProdId = ${product.prodId}", null) == 1
         db.close()
-        return result
+        return success
     }
 
 }

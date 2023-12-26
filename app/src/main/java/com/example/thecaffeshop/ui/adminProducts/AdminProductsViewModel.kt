@@ -29,6 +29,5 @@ class AdminProductsViewModel(application: Application) : AndroidViewModel(applic
         val updatedList = productDBHelper.getAllProducts()
         _products.postValue(updatedList)
     }
-    fun clearCart () {
-    }
+
 }

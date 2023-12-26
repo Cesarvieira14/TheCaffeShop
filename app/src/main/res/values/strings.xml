@@ -31,4 +31,7 @@
     <string name="order_payment_btn">Make payment</string>
     <string name="order_cancel_btn">Cancel order</string>
     <string name="order_filter_placeholder">All orders</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_product">Create Product</string>
 </resources>
