@@ -55,6 +55,15 @@ class ManageProductFragment : Fragment() {
        binding.productEditProduct.setOnClickListener {
            handleEditProductBtnClick(product)
        }
+           binding.productDeleteProduct.setOnClickListener{
+               handleDeleteProductBtnClick(product)
+           }
+
+           binding.productCancelEditProduct.setOnClickListener {
+       // Navigate back when cancel button is clicked
+       view.findNavController().popBackStack()
+
+       }
    }
    }
     fun handleEditProductBtnClick(product: Product) {
@@ -82,12 +91,23 @@ class ManageProductFragment : Fragment() {
             view?.findNavController()
                 ?.navigate(R.id.action_manageProduct_fragment_to_navigation_admin_products)
                 adminProductsViewModel.updateProductsList()
-
-
-
         } else {
             Toast.makeText(requireContext(), "Failed to update product", Toast.LENGTH_SHORT).show()
             // Handle the failure, perhaps show an error message
         }
-}
+    }
+    fun handleDeleteProductBtnClick(product:Product){
+        val dbHelper = ProductDBHelper(requireContext())
+        val deletedSuccessfully = dbHelper.deleteProduct(product)
+
+
+        if (deletedSuccessfully) {
+            Toast.makeText(requireContext(), "Product deleted successfully", Toast.LENGTH_SHORT).show()
+            view?.findNavController()
+                ?.navigate(R.id.action_manageProduct_fragment_to_navigation_admin_products)
+            adminProductsViewModel.updateProductsList()
+        } else {
+            Toast.makeText(requireContext(), "Failed to delete product", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

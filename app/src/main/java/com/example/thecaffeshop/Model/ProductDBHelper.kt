@@ -111,4 +111,14 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
         return success
     }
 
+    fun deleteProduct(product: Product): Boolean {
+        // delete product if it exists in the database
+        // writableDatabase for delete actions
+        val db: SQLiteDatabase = this.writableDatabase
+
+        val result = db.delete(TableName, "$Column_ProdId = ${product.prodId}", null) == 1
+
+        db.close()
+        return result
+    }
 }

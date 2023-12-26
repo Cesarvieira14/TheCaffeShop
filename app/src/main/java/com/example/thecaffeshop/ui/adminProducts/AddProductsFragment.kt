@@ -35,6 +35,10 @@ class AddProductsFragment : Fragment() {
         binding.productAddProduct.setOnClickListener {
             handleAddProductBtnClick()
         }
+        binding.productCancelAddProduct.setOnClickListener {
+            // Navigate back when cancel button is clicked
+            view.findNavController().popBackStack()
+        }
     }
 
     private fun handleAddProductBtnClick() {

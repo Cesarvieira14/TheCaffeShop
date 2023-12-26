@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Avaiable"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             />
 
 
@@ -65,7 +65,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_product"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_marginBottom="10dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/product_cancel_add_product"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:backgroundTint="@android:color/holo_red_light" />
 
 
     </LinearLayout>

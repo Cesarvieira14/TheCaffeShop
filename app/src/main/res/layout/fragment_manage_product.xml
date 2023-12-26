@@ -62,5 +62,28 @@
             android:text="@string/edit_product"
             android:textSize="14sp" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/product_delete_product"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:backgroundTint="@android:color/holo_red_light" />
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/product_cancel_edit_product"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:backgroundTint="@android:color/background_dark" />
+
+
     </LinearLayout>
 </ScrollView>
