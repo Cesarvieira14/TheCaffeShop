@@ -41,13 +41,12 @@ class OrderFragment : Fragment() {
                 OrderStatus.Processing -> {
                     statusText.setChipBackgroundColorResource(R.color.info)
                 }
+                OrderStatus.Preparing -> {
+                    statusText.setChipBackgroundColorResource(R.color.bg)
+                }
                 OrderStatus.Collect -> {
                     statusText.setChipBackgroundColorResource(R.color.success)
                 }
-                OrderStatus.Done -> {
-                    statusText.setChipBackgroundColorResource(R.color.success)
-                }
-
                 OrderStatus.Cancelled -> {
                     statusText.setChipBackgroundColorResource(R.color.error)
                 }

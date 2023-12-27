@@ -74,24 +74,23 @@ class AdminOrderFragment : Fragment() {
         }
     }
    private fun updateOrderStatus(orderId: Int) {
+
        val newOrderStatus = when (binding.OrderStatusGroup.checkedRadioButtonId) {
-         //  R.id.adminOrderPreparingRadioBtn -> OrderStatus.Preparing
+           R.id.preparingRadioButton -> OrderStatus.Preparing
            R.id.collectRadioButton -> OrderStatus.Collect
            else -> {
                Toast.makeText(requireContext(), "Please select a valid order status!", Toast.LENGTH_SHORT).show()
                return
            }
        }
-       // Assuming adminOrdersViewModel has a function to update the order status
        adminOrdersViewModel.updateOrderStatus(orderId, newOrderStatus)
 
        // Optionally, you can observe the updated order status in the ViewModel
        adminOrdersViewModel.order.observe(viewLifecycleOwner) { updatedOrder ->
-           // Handle the updated order status if needed
        }
 
        Toast.makeText(requireContext(), "Order status updated successfully!", Toast.LENGTH_SHORT).show()
        view?.findNavController()?.navigate(R.id.action_navigation_admin_manage_order_to_navigation_admin_orders)
 
-   }
-}
+   }}
+
