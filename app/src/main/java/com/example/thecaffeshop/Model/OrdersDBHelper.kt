@@ -70,7 +70,6 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
         db.close()
         return 0
     }
-
     fun getOrdersByUserId(userId: Int): ArrayList<Order> {
         val db: SQLiteDatabase = this.readableDatabase
 
@@ -80,6 +79,23 @@ class OrdersDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.DB_
         )
 
         val orders: ArrayList<Order> = ArrayList();
+        try {
+            while (cursor.moveToNext()) {
+                orders.add(parseOrder(cursor))
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+        return orders
+    }
+
+    fun getAllOrders(): ArrayList<Order> {
+        val db: SQLiteDatabase = this.readableDatabase
+
+        val cursor: Cursor = db.rawQuery("SELECT * FROM $TableName", null)
+
+        val orders: ArrayList<Order> = ArrayList()
         try {
             while (cursor.moveToNext()) {
                 orders.add(parseOrder(cursor))

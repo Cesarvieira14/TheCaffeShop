@@ -36,4 +36,6 @@
     <string name="add_product">Create Product</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete Product</string>
+    <string name="collect">Collect</string>
+    <string name="update_product">Update Product</string>
 </resources>

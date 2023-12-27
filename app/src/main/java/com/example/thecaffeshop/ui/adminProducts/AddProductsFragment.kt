@@ -65,7 +65,7 @@ class AddProductsFragment : Fragment() {
         if (success) {
             Toast.makeText(requireContext(), "Product created successfully", Toast.LENGTH_SHORT).show()
             view?.findNavController()
-                ?.navigate(R.id.action_navigation_addProductsFragment_to_navigation_admin_products)
+                ?.navigate(R.id.action_addProductsFragment_to_navigation_admin_products)
                 adminProductsViewModel.updateProductsList()
         } else {
             Toast.makeText(requireContext(), "Failed to create product", Toast.LENGTH_SHORT).show()

@@ -71,6 +71,9 @@ class OrdersViewModel(application: Application) : AndroidViewModel(application) 
                     _filteredOrders.value = orders.value?.filter { order -> order.orderStatus == OrderStatus.Pending}
                 OrderStatus.Processing ->
                     _filteredOrders.value = orders.value?.filter { order -> order.orderStatus == OrderStatus.Processing}
+                OrderStatus.Collect ->
+                    _filteredOrders.value = orders.value?.filter { order -> order.orderStatus == OrderStatus.Collect}
+
                 OrderStatus.Done ->
                     _filteredOrders.value = orders.value?.filter { order -> order.orderStatus == OrderStatus.Done}
                 OrderStatus.Cancelled ->
