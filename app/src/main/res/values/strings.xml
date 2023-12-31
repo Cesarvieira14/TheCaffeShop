@@ -39,4 +39,6 @@
     <string name="collect">Collect</string>
     <string name="update_product">Update Product</string>
     <string name="preparing">Preparing</string>
+    <string name="admin_orders_page_title">Manage Orders</string>
+    <string name="admin_users_page_title">Manage Users</string>
 </resources>

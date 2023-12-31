@@ -80,6 +80,23 @@ class CustomerDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nu
         db.close()
     }
 
+    fun getAllUsers(): List<User> {
+        val db : SQLiteDatabase = this.readableDatabase
+
+        val sqlStatement = "SELECT * FROM $TableName"
+        val cursor: Cursor = db.rawQuery(sqlStatement, null)
+
+        val users = mutableListOf<User>()
+
+        while (cursor.moveToNext()) {
+            users.add(parseUser(cursor))
+        }
+
+        cursor.close()
+        db.close()
+
+        return users
+    }
     fun getUserByUserId(userId: Int): User? {
         val db: SQLiteDatabase = this.readableDatabase
 

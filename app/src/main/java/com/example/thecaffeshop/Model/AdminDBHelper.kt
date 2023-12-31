@@ -57,6 +57,23 @@ class AdminDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
         return success != -1L
     }
 
+    fun getAllAdmins(): List<User> {
+        val db : SQLiteDatabase = this.readableDatabase
+
+        val sqlStatement = "SELECT * FROM $TableName"
+        val cursor: Cursor = db.rawQuery(sqlStatement, null)
+
+        val admins = mutableListOf<User>()
+
+        while (cursor.moveToNext()) {
+            admins.add(parseUser(cursor))
+        }
+
+        cursor.close()
+        db.close()
+
+        return admins
+    }
     fun getAdminByAdminId(adminId: Int): User? {
         val db: SQLiteDatabase = this.readableDatabase
 
