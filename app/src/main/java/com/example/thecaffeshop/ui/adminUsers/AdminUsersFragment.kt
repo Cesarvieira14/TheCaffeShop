@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentAdminUsersBinding
-
+import com.example.thecaffeshop.model.User
 
 
 class AdminUsersFragment : Fragment() {
@@ -35,10 +35,10 @@ class AdminUsersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adminusersViewModel =
+        val adminUsersViewModel =
             ViewModelProvider(requireActivity()).get(AdminUsersViewModel::class.java)
 
-        adminusersViewModel.fetchUsersList()
+        adminUsersViewModel.fetchUsersList()
 
         val usersFilterOptions: ArrayList<String> = arrayListOf("All")
 
@@ -51,7 +51,7 @@ class AdminUsersFragment : Fragment() {
         )
         filterSpinner.adapter = adapter
 
-        adminusersViewModel.users.observe(viewLifecycleOwner) { filteredUsersList ->
+        adminUsersViewModel.users.observe(viewLifecycleOwner) { filteredUsersList ->
             Log.d("AdminUsersFragment", "Filtered Users Observer: $filteredUsersList")
 
             val adapter = AdminListAdapter(
@@ -60,10 +60,15 @@ class AdminUsersFragment : Fragment() {
                 filteredUsersList
             )
             binding.usersListView.adapter = adapter
-
             Log.d("AdminUsersFragment", "Adapter item count: ${adapter.count}")
         }
 
+        binding.usersListView.setOnItemClickListener() { adapterView, _, position, _ ->
+            val userAtPosition = adapterView.getItemAtPosition(position) as User
+            adminUsersViewModel.selectUser(userAtPosition)
+            view?.findNavController()
+                ?.navigate(R.id.action_navigation_admin_users_to_navigation_admin_manage_user)
+        }
 
     }
 }

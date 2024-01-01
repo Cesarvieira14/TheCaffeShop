@@ -11,6 +11,7 @@ import com.example.thecaffeshop.model.AdminDBHelper
 import com.example.thecaffeshop.model.CustomerDBHelper
 import com.example.thecaffeshop.model.Order
 import com.example.thecaffeshop.model.OrderStatus
+import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.model.User
 import com.example.thecaffeshop.utils.Session
 import com.example.thecaffeshop.utils.Session.userId
@@ -30,7 +31,7 @@ class AdminUsersViewModel(application: Application) : AndroidViewModel(applicati
     val filteredUsers: LiveData<List<User>> = _filteredUsers
 
     private val _user = MutableLiveData<User>()
-    val order: LiveData<User> = _user
+    val user: LiveData<User> = _user
 
     init {
         fetchUsersList()
@@ -49,6 +50,11 @@ class AdminUsersViewModel(application: Application) : AndroidViewModel(applicati
             else -> allUsers.filter { it.isAdmin /* or any other condition */ }
         }
         _filteredUsers.value = filterUsers
+    }
+
+    fun selectUser(user: User) {
+        _user.value = user
+
     }
 }
 

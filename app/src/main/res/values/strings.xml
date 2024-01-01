@@ -41,4 +41,8 @@
     <string name="preparing">Preparing</string>
     <string name="admin_orders_page_title">Manage Orders</string>
     <string name="admin_users_page_title">Manage Users</string>
+    <string name="update_order">Update Order</string>
+    <string name="back">Back</string>
+    <string name="edit_user">Edit User</string>
+    <string name="title_admin_user">Manage User</string>
 </resources>

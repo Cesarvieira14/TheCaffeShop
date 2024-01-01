@@ -60,7 +60,7 @@ class ManageProductFragment : Fragment() {
            }
 
            binding.productCancelEditProduct.setOnClickListener {
-       // Navigate back when cancel button is clicked
+       // Navigate back
        view.findNavController().popBackStack()
 
        }

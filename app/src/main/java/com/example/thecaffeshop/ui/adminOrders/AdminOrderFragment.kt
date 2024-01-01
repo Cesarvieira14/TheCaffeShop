@@ -69,7 +69,9 @@ class AdminOrderFragment : Fragment() {
 
           binding.orderUpdateStatus.setOnClickListener {
              updateOrderStatus(order.orderId)
-
+          }
+          binding.orderBack.setOnClickListener {
+                view.findNavController().popBackStack()
           }
         }
     }
@@ -85,12 +87,12 @@ class AdminOrderFragment : Fragment() {
        }
        adminOrdersViewModel.updateOrderStatus(orderId, newOrderStatus)
 
-       // Optionally, you can observe the updated order status in the ViewModel
        adminOrdersViewModel.order.observe(viewLifecycleOwner) { updatedOrder ->
        }
 
        Toast.makeText(requireContext(), "Order status updated successfully!", Toast.LENGTH_SHORT).show()
        view?.findNavController()?.navigate(R.id.action_navigation_admin_manage_order_to_navigation_admin_orders)
 
-   }}
+   }
+}
 
