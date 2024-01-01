@@ -39,7 +39,22 @@ class AdminDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         TODO("Not yet implemented")
     }
+    fun updateAdmin(updatedUser: User): Boolean {
+        val db: SQLiteDatabase = writableDatabase
+        val cv = ContentValues()
 
+        cv.put(Column_AdminFullName, updatedUser.fullName)
+        cv.put(Column_AdminEmail, updatedUser.email)
+        cv.put(Column_AdminPhoneNo, updatedUser.phoneNo)
+        cv.put(Column_AdminUserName, updatedUser.userName)
+        cv.put(Column_AdminPassword, updatedUser.password)
+        cv.put(Column_AdminIsActive, updatedUser.isActive)
+
+        val result = db.update(TableName, cv, "$Column_AdminId = ?", arrayOf(updatedUser.id.toString()))
+        db.close()
+
+        return result != -1
+    }
     fun registerAdmin(admin: User): Boolean {
         // writableDatabase for insert actions
         val db: SQLiteDatabase = this.writableDatabase
@@ -125,5 +140,26 @@ class AdminDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
         val isActive = cursor.getInt(cursor.getColumnIndex(Column_AdminIsActive)) != 0
 
         return User(id, fullName, email, phoneNo, userName, password, isActive, true)
+    }
+
+    fun addAdmin(updatedUser: User) {
+        val db: SQLiteDatabase = this.writableDatabase
+        val cv: ContentValues = ContentValues()
+
+        cv.put(Column_AdminFullName, updatedUser.fullName)
+        cv.put(Column_AdminEmail, updatedUser.email)
+        cv.put(Column_AdminPhoneNo, updatedUser.phoneNo)
+        cv.put(Column_AdminUserName, updatedUser.userName)
+        cv.put(Column_AdminPassword, updatedUser.password)
+        cv.put(Column_AdminIsActive, updatedUser.isActive)
+
+        db.insert(TableName, null, cv)
+        db.close()
+    }
+    fun removeAdmin(id: Int): Boolean {
+        val db: SQLiteDatabase = this.writableDatabase
+        val result = db.delete(TableName, "$Column_AdminId = $id", null) == 1
+        db.close()
+        return result
     }
 }

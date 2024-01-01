@@ -41,6 +41,22 @@ class CustomerDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nu
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         TODO("Not yet implemented")
     }
+    fun updateCustomer(updatedUser: User): Boolean {
+        val db: SQLiteDatabase = writableDatabase
+        val cv = ContentValues()
+
+        cv.put(Column_CusFullName, updatedUser.fullName)
+        cv.put(Column_CusEmail, updatedUser.email)
+        cv.put(Column_CusPhoneNo, updatedUser.phoneNo)
+        cv.put(Column_CusUserName, updatedUser.userName)
+        cv.put(Column_CusPassword, updatedUser.password)
+        cv.put(Column_CusIsActive, updatedUser.isActive)
+
+        val result = db.update(TableName, cv, "$Column_ID = ?", arrayOf(updatedUser.id.toString()))
+        db.close()
+
+        return result != -1
+    }
 
     fun registerCustomer(customer: User): Boolean {
 
@@ -48,12 +64,12 @@ class CustomerDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nu
         val db: SQLiteDatabase = this.writableDatabase
         val cv: ContentValues = ContentValues()
 
-        cv.put(Column_CusFullName, customer.fullName)
-        cv.put(Column_CusEmail, customer.email)
-        cv.put(Column_CusPhoneNo, customer.phoneNo)
-        cv.put(Column_CusUserName, customer.userName)
-        cv.put(Column_CusPassword, customer.password)
-        cv.put(Column_CusIsActive, customer.isActive)
+        cv.put(Column_CusFullName , customer.fullName)
+        cv.put(Column_CusEmail    , customer.email)
+        cv.put(Column_CusPhoneNo  , customer.phoneNo)
+        cv.put(Column_CusUserName , customer.userName)
+        cv.put(Column_CusPassword , customer.password)
+        cv.put(Column_CusIsActive , customer.isActive)
 
         val success = db.insert(TableName, null, cv)
         db.close()
@@ -126,6 +142,28 @@ class CustomerDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nu
         val isActive = cursor.getInt(cursor.getColumnIndex(Column_CusIsActive)) != 0
 
         return User(id, fullName, email, phoneNo, userName, password, isActive, false)
+    }
+
+
+    fun addCustomer(updatedUser: User) {
+        val db: SQLiteDatabase = this.writableDatabase
+        val cv: ContentValues = ContentValues()
+
+        cv.put(Column_CusFullName, updatedUser.fullName)
+        cv.put(Column_CusEmail   , updatedUser.email)
+        cv.put(Column_CusPhoneNo , updatedUser.phoneNo)
+        cv.put(Column_CusUserName, updatedUser.userName)
+        cv.put(Column_CusPassword, updatedUser.password)
+        cv.put(Column_CusIsActive, updatedUser.isActive)
+
+        db.insert(TableName, null, cv)
+        db.close()
+    }
+    fun removeCustomer(id: Int): Boolean {
+        val db: SQLiteDatabase = this.writableDatabase
+        val result = db.delete(TableName, "$Column_ID = $id", null) == 1
+        db.close()
+        return result
     }
 }
 
