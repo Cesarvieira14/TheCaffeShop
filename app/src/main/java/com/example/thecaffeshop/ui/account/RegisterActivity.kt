@@ -102,7 +102,7 @@ class RegisterActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.editTextUsername1).text.clear()
             findViewById<EditText>(R.id.editTextPassword2).text.clear()
         } else {
-            Toast.makeText(this, "Error: The employee not added", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error: User not added", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -8,14 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.example.thecaffeshop.R
 import com.example.thecaffeshop.databinding.FragmentAdminUserBinding
-import com.example.thecaffeshop.databinding.FragmentManageProductBinding
 import com.example.thecaffeshop.model.AdminDBHelper
 import com.example.thecaffeshop.model.CustomerDBHelper
-import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.model.User
-import com.example.thecaffeshop.ui.adminProducts.AdminProductsViewModel
 
 
 class AdminUserFragment : Fragment() {
