@@ -1,18 +1,21 @@
 package com.example.thecaffeshop.ui.userStore
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.thecaffeshop.R
@@ -20,6 +23,7 @@ import com.example.thecaffeshop.databinding.FragmentProductBinding
 import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.ui.userHome.HomeActivity
 import java.util.concurrent.Executors
+
 
 class ProductFragment : Fragment() {
     private lateinit var storeViewModel: StoreViewModel
@@ -35,6 +39,8 @@ class ProductFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -78,9 +84,40 @@ class ProductFragment : Fragment() {
                 handleAddToCartBtnClick(product)
             }
         }
+
+        storeViewModel.productComments.observe(viewLifecycleOwner) { comments ->
+            if ((comments?.size ?: 0) > 0) {
+                val adapter = CommentsListAdapter(
+                    requireActivity().applicationContext,
+                    layoutInflater,
+                    comments!!
+                )
+                adapter.setCurrentUserId(storeViewModel.userId)
+                adapter.setHandleCommentRemove {
+                    storeViewModel.removeComment(it)
+                    Toast.makeText(
+                        requireContext(),
+                        "Comment removed!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                binding.commentsListView.adapter = adapter
+            }
+
+            binding.productAddComment.setOnClickListener {
+                storeViewModel.createComment(binding.editTextAddComment.text.toString())
+                binding.editTextAddComment.setText("")
+                
+                Toast.makeText(
+                    requireContext(),
+                    "Comment added to product!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
-    fun handleAddToCartBtnClick(product: Product) {
+    private fun handleAddToCartBtnClick(product: Product) {
         if (!product.prodAvailable) {
             Toast.makeText(requireContext(), "Product is not available", Toast.LENGTH_SHORT).show()
             return

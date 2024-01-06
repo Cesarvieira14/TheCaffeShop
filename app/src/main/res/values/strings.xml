@@ -13,6 +13,7 @@
     <string name="store_page_title">Menu</string>
     <string name="orders_page_title">Your orders</string>
     <string name="add_to_cart">Add to cart</string>
+    <string name="comments_title">Comments</string>
     <string name="profile_page_title">Your profile</string>
     <string name="profile_email_text">Email</string>
     <string name="profile_username_text">Username</string>

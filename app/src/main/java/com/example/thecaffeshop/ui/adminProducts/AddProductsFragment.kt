@@ -30,7 +30,8 @@ class AddProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adminProductsViewModel = ViewModelProvider(requireActivity()).get(AdminProductsViewModel::class.java)
+        adminProductsViewModel =
+            ViewModelProvider(requireActivity()).get(AdminProductsViewModel::class.java)
 
         binding.productAddProduct.setOnClickListener {
             handleAddProductBtnClick()
@@ -43,9 +44,11 @@ class AddProductsFragment : Fragment() {
 
     private fun handleAddProductBtnClick() {
         val updatedName = binding.editProductTitle.text.toString().takeIf { it.isNotBlank() } ?: ""
-        val updatedDescription = binding.editProductDescription.text.toString().takeIf { it.isNotBlank() } ?: ""
+        val updatedDescription =
+            binding.editProductDescription.text.toString().takeIf { it.isNotBlank() } ?: ""
         val updatedImage = binding.editProductImage.text.toString().takeIf { it.isNotBlank() } ?: ""
-        val updatedPriceString = binding.editProductPrice.text.toString().takeIf { it.isNotBlank() } ?: "0.0"
+        val updatedPriceString =
+            binding.editProductPrice.text.toString().takeIf { it.isNotBlank() } ?: "0.0"
         val updatedPrice = updatedPriceString.toDouble()
         val updatedAvailability = binding.editProductAvailability.isChecked
 
@@ -56,17 +59,20 @@ class AddProductsFragment : Fragment() {
             prodDescription = updatedDescription,
             prodImage = updatedImage,
             prodPrice = updatedPrice,
-            prodAvailable = updatedAvailability
+            prodAvailable = updatedAvailability,
+            prodRating = 0,
+            comments = arrayListOf()
         )
 
         val dbHelper = ProductDBHelper(requireContext())
         val success = dbHelper.addProduct(newProduct)
 
         if (success) {
-            Toast.makeText(requireContext(), "Product created successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Product created successfully", Toast.LENGTH_SHORT)
+                .show()
             view?.findNavController()
                 ?.navigate(R.id.action_addProductsFragment_to_navigation_admin_products)
-                adminProductsViewModel.updateProductsList()
+            adminProductsViewModel.updateProductsList()
         } else {
             Toast.makeText(requireContext(), "Failed to create product", Toast.LENGTH_SHORT).show()
             // Handle the failure, perhaps show an error message

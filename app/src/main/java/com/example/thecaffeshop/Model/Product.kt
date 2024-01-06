@@ -9,7 +9,9 @@ data class Product(
     var prodPrice: Double,
     var prodImage: String,
     var prodAvailable: Boolean,
-): Serializable {
+    var prodRating: Int,
+    var comments: List<Comment>?
+) : Serializable {
     override fun toString(): String {
         return "Product(" +
                 "prodId='$prodId', " +
@@ -17,7 +19,9 @@ data class Product(
                 "prodDescription='$prodDescription', " +
                 "prodPrice='$prodPrice', " +
                 "prodImage='$prodImage', " +
-                "prodAvailable='$prodAvailable'" +
+                "prodAvailable='$prodAvailable', " +
+                "prodRating='$prodRating', " +
+                "comments='$comments'" +
                 ")"
     }
 }
