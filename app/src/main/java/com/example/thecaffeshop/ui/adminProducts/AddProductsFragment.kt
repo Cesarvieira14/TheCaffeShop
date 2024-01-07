@@ -46,30 +46,42 @@ class AddProductsFragment : Fragment() {
         val updatedDescription = binding.editProductDescription.text.toString().takeIf { it.isNotBlank() } ?: ""
         val updatedImage = binding.editProductImage.text.toString().takeIf { it.isNotBlank() } ?: ""
         val updatedPriceString = binding.editProductPrice.text.toString().takeIf { it.isNotBlank() } ?: "0.0"
-        val updatedPrice = updatedPriceString.toDouble()
-        val updatedAvailability = binding.editProductAvailability.isChecked
 
+        if (updatedName.isBlank() || updatedDescription.isBlank() || updatedImage.isBlank() || updatedPriceString.isBlank()) {
+            Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-        val newProduct = Product(
-            0,
-            prodName = updatedName,
-            prodDescription = updatedDescription,
-            prodImage = updatedImage,
-            prodPrice = updatedPrice,
-            prodAvailable = updatedAvailability
-        )
+        try {
+            val updatedPrice = updatedPriceString.toDouble()
 
-        val dbHelper = ProductDBHelper(requireContext())
-        val success = dbHelper.addProduct(newProduct)
+            if (updatedPrice < 0) {
+                Toast.makeText(requireContext(), "Price cannot be negative", Toast.LENGTH_SHORT).show()
+                return
+            }
 
-        if (success) {
-            Toast.makeText(requireContext(), "Product created successfully", Toast.LENGTH_SHORT).show()
-            view?.findNavController()
-                ?.navigate(R.id.action_addProductsFragment_to_navigation_admin_products)
+            val newProduct = Product(
+                0,
+                prodName = updatedName,
+                prodDescription = updatedDescription,
+                prodImage = updatedImage,
+                prodPrice = updatedPrice,
+                prodAvailable = binding.editProductAvailability.isChecked
+            )
+
+            val dbHelper = ProductDBHelper(requireContext())
+            val success = dbHelper.addProduct(newProduct)
+
+            if (success) {
+                Toast.makeText(requireContext(), "Product created successfully", Toast.LENGTH_SHORT).show()
+                view?.findNavController()
+                    ?.navigate(R.id.action_addProductsFragment_to_navigation_admin_products)
                 adminProductsViewModel.updateProductsList()
-        } else {
-            Toast.makeText(requireContext(), "Failed to create product", Toast.LENGTH_SHORT).show()
-            // Handle the failure, perhaps show an error message
+            } else {
+                Toast.makeText(requireContext(), "Failed to create product", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: NumberFormatException) {
+            Toast.makeText(requireContext(), "Invalid price format", Toast.LENGTH_SHORT).show()
         }
     }
 }
