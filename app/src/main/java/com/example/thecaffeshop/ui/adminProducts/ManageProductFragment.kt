@@ -13,7 +13,6 @@ import com.example.thecaffeshop.databinding.FragmentManageProductBinding
 import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.model.ProductDBHelper
 
-
 class ManageProductFragment : Fragment() {
     private lateinit var adminProductsViewModel: AdminProductsViewModel
 
@@ -63,6 +62,25 @@ class ManageProductFragment : Fragment() {
                 // Navigate back
                 view.findNavController().popBackStack()
 
+            }
+        }
+
+        adminProductsViewModel.productComments.observe(viewLifecycleOwner) { comments ->
+            if ((comments?.size ?: 0) > 0) {
+                val adapter = AdminCommentsListAdapter(
+                    requireActivity().applicationContext,
+                    layoutInflater,
+                    comments!!
+                )
+                adapter.setHandleCommentRemove {
+                    adminProductsViewModel.removeComment(it)
+                    Toast.makeText(
+                        requireContext(),
+                        "Comment removed!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                binding.adminCommentsListView.adapter = adapter
             }
         }
     }

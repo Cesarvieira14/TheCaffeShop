@@ -54,6 +54,14 @@
             android:layout_marginBottom="10dp"
             />
 
+        <ListView
+            android:id="@+id/admin_comments_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:layout_marginVertical="10dp"
+            android:nestedScrollingEnabled="true"
+            android:padding="12dp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/product_edit_product"
             style="@style/Widget.Material3.Button.ElevatedButton"
