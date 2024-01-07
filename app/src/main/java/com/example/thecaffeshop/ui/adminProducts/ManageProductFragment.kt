@@ -48,8 +48,7 @@ class ManageProductFragment : Fragment() {
             binding.editProductImage.setText(product.prodImage)
             binding.editProductPrice.hint = "£${"%.2f".format(product.prodPrice)}"
             binding.editProductAvailability.isChecked = product.prodAvailable == true
-
-
+            binding.editProductRating.rating = product.prodRating.toFloat()
 
             binding.productEditProduct.setOnClickListener {
                 handleEditProductBtnClick(product)

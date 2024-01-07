@@ -29,6 +29,16 @@
             android:layout_marginBottom="12dp"
             android:text="Product_title" />
 
+        <RatingBar
+            android:id="@+id/product_rating"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:numStars="5"
+            android:rating="3"
+            android:stepSize="1" />
+
         <TextView
             android:id="@+id/product_description"
             style="@style/TextAppearance.Material3.BodyMedium"

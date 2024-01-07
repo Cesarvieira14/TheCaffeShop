@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.RatingBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.getSystemService
@@ -54,6 +55,7 @@ class ProductFragment : Fragment() {
             actionBar?.title = "Store - ${product.prodName}"
 
             binding.productTitle.text = product.prodName
+            binding.productRating.rating = product.prodRating.toFloat()
             binding.productDescription.text = product.prodDescription
             binding.productPrice.text = "£${"%.2f".format(product.prodPrice)}"
             if (product.prodAvailable) {
@@ -107,7 +109,7 @@ class ProductFragment : Fragment() {
             binding.productAddComment.setOnClickListener {
                 storeViewModel.createComment(binding.editTextAddComment.text.toString())
                 binding.editTextAddComment.setText("")
-                
+
                 Toast.makeText(
                     requireContext(),
                     "Comment added to product!",
