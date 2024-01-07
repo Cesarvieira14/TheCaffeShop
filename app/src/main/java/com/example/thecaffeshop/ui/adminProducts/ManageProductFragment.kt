@@ -13,7 +13,6 @@ import com.example.thecaffeshop.databinding.FragmentManageProductBinding
 import com.example.thecaffeshop.model.Product
 import com.example.thecaffeshop.model.ProductDBHelper
 
-
 class ManageProductFragment : Fragment() {
     private lateinit var adminProductsViewModel: AdminProductsViewModel
 
@@ -30,79 +29,111 @@ class ManageProductFragment : Fragment() {
     }
 
 
-   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-       super.onViewCreated(view, savedInstanceState)
-       adminProductsViewModel =
-           ViewModelProvider(requireActivity()).get(AdminProductsViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        adminProductsViewModel =
+            ViewModelProvider(requireActivity()).get(AdminProductsViewModel::class.java)
 
 
-  //TODO: fix error in the action bar
-    //  val actionBar = (activity as HomeActivity).supportActionBar
-    //  actionBar?.show()
-    //  actionBar?.setDisplayHomeAsUpEnabled(true)
+        //TODO: fix error in the action bar
+        //  val actionBar = (activity as HomeActivity).supportActionBar
+        //  actionBar?.show()
+        //  actionBar?.setDisplayHomeAsUpEnabled(true)
 
-       adminProductsViewModel.product.observe(viewLifecycleOwner) { product ->
-          // actionBar?.title = "Manage - ${product.prodName}"
+        adminProductsViewModel.product.observe(viewLifecycleOwner) { product ->
+            // actionBar?.title = "Manage - ${product.prodName}"
 
-           binding.editProductTitle.setText(product.prodName)
-           binding.editProductDescription.setText(product.prodDescription)
-           binding.editProductImage.setText(product.prodImage)
-           binding.editProductPrice.hint = "£${"%.2f".format(product.prodPrice)}"
-           binding.editProductAvailability.isChecked = product.prodAvailable == true
+            binding.editProductTitle.setText(product.prodName)
+            binding.editProductDescription.setText(product.prodDescription)
+            binding.editProductImage.setText(product.prodImage)
+            binding.editProductPrice.hint = "£${"%.2f".format(product.prodPrice)}"
+            binding.editProductAvailability.isChecked = product.prodAvailable == true
 
 
 
-       binding.productEditProduct.setOnClickListener {
-           handleEditProductBtnClick(product)
-       }
-           binding.productDeleteProduct.setOnClickListener{
-               handleDeleteProductBtnClick(product)
-           }
+            binding.productEditProduct.setOnClickListener {
+                handleEditProductBtnClick(product)
+            }
+            binding.productDeleteProduct.setOnClickListener {
+                handleDeleteProductBtnClick(product)
+            }
 
-           binding.productCancelEditProduct.setOnClickListener {
-       // Navigate back
-       view.findNavController().popBackStack()
+            binding.productCancelEditProduct.setOnClickListener {
+                // Navigate back
+                view.findNavController().popBackStack()
 
-       }
-   }
-   }
+            }
+        }
+
+        adminProductsViewModel.productComments.observe(viewLifecycleOwner) { comments ->
+            if ((comments?.size ?: 0) > 0) {
+                val adapter = AdminCommentsListAdapter(
+                    requireActivity().applicationContext,
+                    layoutInflater,
+                    comments!!
+                )
+                adapter.setHandleCommentRemove {
+                    adminProductsViewModel.removeComment(it)
+                    Toast.makeText(
+                        requireContext(),
+                        "Comment removed!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                binding.adminCommentsListView.adapter = adapter
+            }
+        }
+    }
+
     fun handleEditProductBtnClick(product: Product) {
-        val updatedName = binding.editProductTitle.text.toString().takeIf { it.isNotBlank() } ?: product.prodName
-        val updatedDescription = binding.editProductDescription.text.toString().takeIf { it.isNotBlank() } ?: product.prodDescription
-        val updatedImage = binding.editProductImage.text.toString().takeIf { it.isNotBlank() } ?: product.prodImage
-        val updatedPriceString = binding.editProductPrice.text.toString().takeIf { it.isNotBlank() } ?: "${"%.2f".format(product.prodPrice)}"
+        val updatedName =
+            binding.editProductTitle.text.toString().takeIf { it.isNotBlank() } ?: product.prodName
+        val updatedDescription =
+            binding.editProductDescription.text.toString().takeIf { it.isNotBlank() }
+                ?: product.prodDescription
+        val updatedImage =
+            binding.editProductImage.text.toString().takeIf { it.isNotBlank() } ?: product.prodImage
+        val updatedPriceString =
+            binding.editProductPrice.text.toString().takeIf { it.isNotBlank() } ?: "%.2f".format(
+                product.prodPrice
+            )
         val updatedPrice = updatedPriceString.toDouble()
         val updatedAvailability = binding.editProductAvailability.isChecked
 
         val updatedProduct = Product(
-        prodId = product.prodId,
-        prodName = updatedName,
-        prodDescription = updatedDescription,
-        prodImage = updatedImage, // image unchanged
-        prodPrice = updatedPrice,
-        prodAvailable = updatedAvailability
-    )
+            prodId = product.prodId,
+            prodName = updatedName,
+            prodDescription = updatedDescription,
+            prodImage = updatedImage, // image unchanged
+            prodPrice = updatedPrice,
+            prodAvailable = updatedAvailability,
+            prodRating = 0,
+            comments = arrayListOf()
+        )
 
         val dbHelper = ProductDBHelper(requireContext())
         val success = dbHelper.editProduct(updatedProduct)
 
         if (success) {
-            Toast.makeText(requireContext(), "Product updated successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Product updated successfully", Toast.LENGTH_SHORT)
+                .show()
             view?.findNavController()
                 ?.navigate(R.id.action_manageProduct_fragment_to_navigation_admin_products)
-                adminProductsViewModel.updateProductsList()
+            adminProductsViewModel.updateProductsList()
         } else {
             Toast.makeText(requireContext(), "Failed to update product", Toast.LENGTH_SHORT).show()
             // Handle the failure, perhaps show an error message
         }
     }
-    fun handleDeleteProductBtnClick(product:Product){
+
+    fun handleDeleteProductBtnClick(product: Product) {
         val dbHelper = ProductDBHelper(requireContext())
         val deletedSuccessfully = dbHelper.deleteProduct(product)
 
 
         if (deletedSuccessfully) {
-            Toast.makeText(requireContext(), "Product deleted successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Product deleted successfully", Toast.LENGTH_SHORT)
+                .show()
             view?.findNavController()
                 ?.navigate(R.id.action_manageProduct_fragment_to_navigation_admin_products)
             adminProductsViewModel.updateProductsList()

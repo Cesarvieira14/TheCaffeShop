@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import com.example.thecaffeshop.R
 import com.example.thecaffeshop.model.Product
 import java.util.ArrayList

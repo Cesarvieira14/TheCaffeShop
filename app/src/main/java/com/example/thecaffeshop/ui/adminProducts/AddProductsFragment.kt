@@ -30,7 +30,8 @@ class AddProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adminProductsViewModel = ViewModelProvider(requireActivity()).get(AdminProductsViewModel::class.java)
+        adminProductsViewModel =
+            ViewModelProvider(requireActivity()).get(AdminProductsViewModel::class.java)
 
         binding.productAddProduct.setOnClickListener {
             handleAddProductBtnClick()
@@ -43,7 +44,8 @@ class AddProductsFragment : Fragment() {
 
     private fun handleAddProductBtnClick() {
         val updatedName = binding.editProductTitle.text.toString().takeIf { it.isNotBlank() } ?: ""
-        val updatedDescription = binding.editProductDescription.text.toString().takeIf { it.isNotBlank() } ?: ""
+        val updatedDescription =
+            binding.editProductDescription.text.toString().takeIf { it.isNotBlank() } ?: ""
         val updatedImage = binding.editProductImage.text.toString().takeIf { it.isNotBlank() } ?: ""
         val updatedPriceString = binding.editProductPrice.text.toString().takeIf { it.isNotBlank() } ?: "0.0"
 
@@ -66,7 +68,9 @@ class AddProductsFragment : Fragment() {
                 prodDescription = updatedDescription,
                 prodImage = updatedImage,
                 prodPrice = updatedPrice,
-                prodAvailable = binding.editProductAvailability.isChecked
+                prodAvailable = binding.editProductAvailability.isChecked,
+                prodRating = 0,
+                comments = arrayListOf()
             )
 
             val dbHelper = ProductDBHelper(requireContext())

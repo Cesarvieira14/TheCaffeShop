@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="1275.6095185187842" y="799.2045895064728">com.example.thecaffeshop.model.OrderDetailsDBHelper</node>
+    <node x="251.80605246925222" y="1228.343925926251">com.example.thecaffeshop.model.PaymentsDBHelper</node>
+    <node x="739.1498302470809" y="700.1081512347126">com.example.thecaffeshop.model.OrdersDBHelper</node>
+    <node x="-275.82965136969744" y="1310.7416783426404">com.example.thecaffeshop.model.Product</node>
+    <node x="-326.18772853019914" y="137.23821296283666">com.example.thecaffeshop.model.User</node>
+    <node x="269.14207098791996" y="314.6965339504684">com.example.thecaffeshop.model.CustomerDBHelper</node>
+    <node x="899.4262003774954" y="1251.2410956794006">com.example.thecaffeshop.model.ProductDBHelper</node>
+    <node x="-335.18772853019914" y="954.268963633084">com.example.thecaffeshop.model.Order</node>
+    <node x="-203.18772853019902" y="693.3282592595071">com.example.thecaffeshop.model.Payment</node>
+    <node x="-672.9992749618544" y="1023.7689636330841">com.example.thecaffeshop.model.OrderStatus</node>
+    <node x="267.64207098791996" y="-252.7032222224018">com.example.thecaffeshop.model.AdminDBHelper</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Compact" zoom="0.5345203760346673" showDependencies="true" x="645.5205443351938" y="859.4870358479307" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

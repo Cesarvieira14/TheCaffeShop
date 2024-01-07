@@ -10,7 +10,17 @@ import android.database.sqlite.SQLiteOpenHelper
 
 private const val ver: Int = 1
 
-// SQL: CREATE TABLE Products (ProdId INTEGER PRIMARY KEY AUTOINCREMENT, ProdName TEXT, ProdDescription TEXT, ProdPrice REAL, ProdImage TEXT, ProdAvailable BOOLEAN)
+// SQL:
+// CREATE TABLE "Products" (
+//	"ProdId"	INTEGER,
+//	"ProdName"	TEXT,
+//	"ProdDescription"	TEXT,
+//	"ProdPrice"	REAL,
+//	"ProdImage"	TEXT,
+//	"ProdAvailable"	BOOLEAN,
+//	"ProdRating"	INTEGER DEFAULT 0,
+//	PRIMARY KEY("ProdId" AUTOINCREMENT)
+//)
 class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, ver) {
     companion object {
         /* Products Table */
@@ -21,6 +31,7 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
         val Column_ProdPrice = "ProdPrice"
         val Column_ProdImage = "ProdImage"
         val Column_ProdAvailable = "ProdAvailable"
+        val Column_ProdRating = "ProdRating"
 
         @SuppressLint("Range")
         fun parseProduct(cursor: Cursor): Product {
@@ -30,6 +41,7 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
             val prodPrice = cursor.getFloat(cursor.getColumnIndex(Column_ProdPrice))
             val prodImage = cursor.getString(cursor.getColumnIndex(Column_ProdImage))
             val prodAvailable = cursor.getInt(cursor.getColumnIndex(Column_ProdAvailable)) != 0
+            val prodRating = cursor.getInt(cursor.getColumnIndex(Column_ProdRating))
 
             return Product(
                 prodId,
@@ -37,7 +49,9 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
                 prodDescription,
                 prodPrice.toDouble(),
                 prodImage,
-                prodAvailable
+                prodAvailable,
+                prodRating,
+                arrayListOf()
             )
         }
     }
@@ -50,7 +64,8 @@ class ProductDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, nul
                 Column_ProdDescription + " TEXT, " +
                 Column_ProdPrice + " REAL, " +
                 Column_ProdImage + " TEXT, " +
-                Column_ProdAvailable + " BOOLEAN )"
+                Column_ProdAvailable + " BOOLEAN, " +
+                Column_ProdRating + " INTEGER )"
 
         db?.execSQL(sqlCreateStatement)
     }
