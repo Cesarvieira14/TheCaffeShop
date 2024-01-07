@@ -43,9 +43,9 @@ class CommentsDBHelper(context: Context) : SQLiteOpenHelper(context, Constants.D
     fun getAllCommentsForProduct(prodId: Int): ArrayList<Comment> {
         val db: SQLiteDatabase = this.readableDatabase
 
-        val sqlStatement = "SELECT * FROM $TableName"
+        val sqlStatement = "SELECT * FROM $TableName WHERE $Column_ProdId = $prodId"
 
-        val cursor: Cursor = db.rawQuery(sqlStatement, arrayOf())
+        val cursor = db.rawQuery(sqlStatement, arrayOf())
 
         val comments: ArrayList<Comment> = ArrayList();
         try {

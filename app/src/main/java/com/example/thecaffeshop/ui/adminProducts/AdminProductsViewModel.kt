@@ -30,11 +30,11 @@ class AdminProductsViewModel(application: Application) : AndroidViewModel(applic
     private val _productComments = MutableLiveData<List<Comment>>()
     val productComments: LiveData<List<Comment>> = _productComments
 
-    fun selectProduct(product: Product) {
-        val comments = commentsDBHelper.getAllCommentsForProduct(product.prodId)
-        product.comments = comments
+    fun selectProduct(prod: Product) {
+        val comments = commentsDBHelper.getAllCommentsForProduct(prod.prodId)
+        prod.comments = comments
 
-        _product.value = product
+        _product.value = prod
         _productComments.value = comments
     }
 

@@ -61,12 +61,12 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
         _products.value = productDBHelper.getAllProducts()
     }
 
-    fun selectProduct(product: Product) {
+    fun selectProduct(prod: Product) {
         // Fetch product comments async
-        val comments = commentsDBHelper.getAllCommentsForProduct(product.prodId)
-        product.comments = comments
+        val comments = commentsDBHelper.getAllCommentsForProduct(prod.prodId)
+        prod.comments = comments
 
-        _product.value = product
+        _product.value = prod
         _productComments.value = comments
     }
 
