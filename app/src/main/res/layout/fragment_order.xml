@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="235dp"
             android:layout_marginBottom="12dp"
+            android:nestedScrollingEnabled="true"
             android:padding="12dp" />
 
         <TextView
@@ -66,10 +67,10 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/order_status"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="status" />
+            android:text="status"
+            android:textColor="@color/white" />
 
         <RadioGroup
             android:id="@+id/order_payment_type_selection"
